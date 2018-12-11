@@ -26,11 +26,7 @@ public class AxeButton extends MenuButton {
 
     @Override
     protected void doButtonFunction(MouseEvent e) {
-        if (e.getX() > x && e.getX() < x + 40 && e.getY() > y && e.getY() < y + 40) {
-            x = x - 50;
 
-            pc.removeButtons(true);
-        }else{
             for (int i = 0; i < grasses.length; i++) {
                 for (int f = 0; f < grasses[0].length; f++) {
                     if(grasses[i][f] != null) {
@@ -42,7 +38,7 @@ public class AxeButton extends MenuButton {
                         }
                     }
                 }
-            }
+
         }
     }
 

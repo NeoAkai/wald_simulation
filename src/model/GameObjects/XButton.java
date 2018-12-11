@@ -34,7 +34,7 @@ public class XButton extends GraphicalObject {
         if(klicked){
             if(visible){
                 if(hitbox.contains(e.getPoint())){
-                    pc.removeButtons(true);
+                    pc.deactivateButton();
                 }
             }
         }

@@ -33,8 +33,9 @@ public class ProgramController {
     private InventoryButton invButton;
     private ShopButton shopButton;
     private SQLHandler sqlCreator;
-    private XButton ix;
+    private XButton xButton;
     private shop shop;
+    private MenuButton[] buttons;
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -83,16 +84,22 @@ public class ProgramController {
         uiController.drawObject(wildPig);
         worm = new Worm(666,283);
         uiController.drawObject(worm);
-        axeButton = new AxeButton(1000,5,grass,this);
-        uiController.drawObject(axeButton);
-        invButton = new InventoryButton(950,5,this);
-        uiController.drawObject(invButton);
-        shopButton = new ShopButton(900,5,this);
-        uiController.drawObject(shopButton);
-        ix = new XButton(1050,5,this);
-        uiController.drawObject(ix);
+        xButton = new XButton(1050,5,this);
+        uiController.drawObject(xButton);
         shop = new shop(50,50);
         uiController.drawObject(shop);
+
+
+        buttons = new MenuButton[5];
+        buttons[0] = new AxeButton(1000,5,grass,this);
+        buttons[1] = new InventoryButton(950,5,this);
+        buttons[2] = new ShopButton(900,5,this);
+
+        for(MenuButton b : buttons){
+            if(b != null){
+                uiController.drawObject(b);
+            }
+        }
 
     }
 
@@ -107,14 +114,30 @@ public class ProgramController {
         invButton.setVisibility(b);
         shopButton.setVisibility(b);
         axeButton.setVisibility(b);
-        ix.setVisible(!b);
+        xButton.setVisible(!b);
     }
     public void setShop(boolean b){
         shop.setVisible(b);
     }
 
     public void activateButton(MenuButton b){
+        for(MenuButton m : buttons){
+            if(m != null){
+                m.setVisible(false);
+            }
+        }
+        b.setActive(true);
+        xButton.setVisible(true);
+    }
 
+    public void deactivateButton(){
+        for(MenuButton b : buttons){
+            if(b != null){
+                b.setActive(false);
+                b.setVisible(true);
+            }
+        }
+        xButton.setVisible(false);
     }
 
 
