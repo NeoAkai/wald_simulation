@@ -42,6 +42,16 @@ public class AxeButton extends MenuButton {
         }
     }
 
+    @Override
+    protected void onButtonActivation() {
+
+    }
+
+    @Override
+    protected void onButtonDeactivation() {
+
+    }
+
     public void setVisibility(boolean b){
         visible = b;
     }

@@ -4,7 +4,6 @@ import control.ProgramController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
@@ -34,7 +33,7 @@ public abstract class MenuButton extends GraphicalObject {
         if(klicked){
             if(visible){
                 if(hitbox.contains(e.getPoint())){
-                    activateButton();
+                    pc.activateButton(this);
                 }
             }else if(active){
                 doButtonFunction(e);
@@ -43,11 +42,11 @@ public abstract class MenuButton extends GraphicalObject {
         klicked = !klicked;
     }
 
-    protected void activateButton(){
-      pc.activateButton(this);
-    }
-
     protected abstract void doButtonFunction(MouseEvent e);
+
+    protected abstract void onButtonActivation();
+
+    protected abstract void onButtonDeactivation();
 
     public Rectangle2D.Double getHitbox() {
         return hitbox;
@@ -70,6 +69,14 @@ public abstract class MenuButton extends GraphicalObject {
     }
 
     public void setActive(boolean active) {
+        if(this.active != active){
+            if(active == true){
+                onButtonActivation();
+            }else{
+                System.out.println(1);
+                onButtonDeactivation();
+            }
+        }
         this.active = active;
     }
 }

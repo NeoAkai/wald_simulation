@@ -76,7 +76,6 @@ public class SQLHandler {
         try {
             stmt.execute("INSERT INTO JA_Grass (x, y)" +
                     "VALUES ('" + x + "', '" + y + "');");
-            System.out.println(1);
         } catch(Exception e){
             if(getDebugMsg) System.out.println("Grass nicht hinzugefügt");
         }

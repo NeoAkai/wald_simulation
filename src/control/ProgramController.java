@@ -29,9 +29,6 @@ public class ProgramController {
     private WildPig wildPig;
     private Worm worm;
     private UserInterface userInterface;
-    private AxeButton axeButton;
-    private InventoryButton invButton;
-    private ShopButton shopButton;
     private SQLHandler sqlCreator;
     private XButton xButton;
     private shop shop;
@@ -101,21 +98,19 @@ public class ProgramController {
             }
         }
 
+        ((ShopButton)buttons[2]).addBuyButtonsToDrawingPanel();
+
     }
 
 
     public void addWood(int amount){
         userInterface.addWood(amount);
     }
+
     public void addCash(int amount){
         userInterface.addCash(amount);
     }
-    public void removeButtons(boolean b){
-        invButton.setVisibility(b);
-        shopButton.setVisibility(b);
-        axeButton.setVisibility(b);
-        xButton.setVisible(!b);
-    }
+
     public void setShop(boolean b){
         shop.setVisible(b);
     }
@@ -165,5 +160,9 @@ public class ProgramController {
 
     public SQLHandler getSqlCreator() {
         return sqlCreator;
+    }
+
+    public UIController getUiController() {
+        return uiController;
     }
 }
