@@ -1,5 +1,6 @@
 package model.GameObjects;
 
+import control.ProgramController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -8,11 +9,14 @@ import java.awt.event.MouseEvent;
 public class BuyButton extends GraphicalObject {
 
     private boolean visible;
-    private String product;
+    private int product;
+    private ProgramController pc;
+    private boolean klicked = false;
 
-    public BuyButton(double x, double y, String product){
+    public BuyButton(double x, double y,int product, ProgramController pc){
         this.x = x;
         this.y = y;
+        this.pc = pc;
         createAndSetNewImage("assets/images/UiImages/buy.png");
         this.product = product;
     }
@@ -24,7 +28,12 @@ public class BuyButton extends GraphicalObject {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        if(e.getX()>x&&e.getX()<x+26&&e.getY()>y&&e.getY()<y+15){
+            if(klicked){
 
+            }
+        }
+        klicked = !klicked;
     }
 
     public boolean isVisible() {

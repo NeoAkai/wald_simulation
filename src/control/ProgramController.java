@@ -157,6 +157,17 @@ public class ProgramController {
             }
         }
     }
+    public int getWood(){
+        return userInterface.getWood();
+    }
+
+    public int getCash(){
+        return userInterface.getCash();
+    }
+
+    public int getHarmony(){
+        return userInterface.getHarmony();
+    }
 
     public SQLHandler getSqlCreator() {
         return sqlCreator;

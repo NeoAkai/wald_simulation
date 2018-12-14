@@ -10,7 +10,7 @@ public class UserInterface extends GraphicalObject  {
     private int heigth;
     private int wood = 0;
     private int cash = 500;
-    private int food = 0;
+    private int harmony = 0;
 
 
     //Referenzen
@@ -29,7 +29,7 @@ public class UserInterface extends GraphicalObject  {
         drawTool.setCurrentColor(255,255,255,255);
         drawTool.drawText(120, 32, cash+"$");
         drawTool.drawText(340,32,wood+"");
-        drawTool.drawText(560,32,food+"");
+        drawTool.drawText(560,32, harmony +"");
     }
 
     public void addCash(int amount){
@@ -38,6 +38,16 @@ public class UserInterface extends GraphicalObject  {
 
     public void addWood(int amount){
         wood = wood + amount;
+    }
+
+    public int getWood(){
+        return wood;
+    }
+    public int getCash(){
+        return cash;
+    }
+    public int getHarmony(){
+        return harmony;
     }
 }
 
