@@ -19,6 +19,7 @@ public class ProgramController {
     private Grass[][] grass;
     private Tree[][] tree;
     private Cat cat;
+    private Animal[] animals = new Animal[10];
     private Bird bird;
     private Eichhörnchen eichhörnchen;
     private Fox fox;
@@ -63,24 +64,24 @@ public class ProgramController {
         sqlCreator.handleSQL();
         cat = new Cat(200,500);
         uiController.drawObject(cat);
-        bird = new Bird(300,400);
-        uiController.drawObject(bird);
-        eichhörnchen = new Eichhörnchen(700,500);
-        uiController.drawObject(eichhörnchen);
-        fox = new Fox(473,507);
-        uiController.drawObject(fox);
-        goat = new Goat(1000,395);
-        uiController.drawObject(goat);
-        hirsch = new Hirsch(933,698);
-        uiController.drawObject(hirsch);
-        rabbit = new Rabbit(655,555);
-        uiController.drawObject(rabbit);
-        schnecke = new Schnecke(823,222);
-        uiController.drawObject(schnecke);
-        wildPig = new WildPig(539,111);
-        uiController.drawObject(wildPig);
-        worm = new Worm(666,283);
-        uiController.drawObject(worm);
+        //bird = new Bird(300,400);
+        //uiController.drawObject(bird);
+        //eichhörnchen = new Eichhörnchen(700,500);
+        //uiController.drawObject(eichhörnchen);
+        //fox = new Fox(473,507);
+        //uiController.drawObject(fox);
+        //goat = new Goat(1000,395);
+        //uiController.drawObject(goat);
+        //hirsch = new Hirsch(933,698);
+        //uiController.drawObject(hirsch);
+        //rabbit = new Rabbit(655,555);
+        //uiController.drawObject(rabbit);
+        //schnecke = new Schnecke(823,222);
+        //uiController.drawObject(schnecke);
+        //wildPig = new WildPig(539,111);
+        //uiController.drawObject(wildPig);
+        //worm = new Worm(666,283);
+        //uiController.drawObject(worm);
         xButton = new XButton(1050,5,this);
         uiController.drawObject(xButton);
         shop = new shop(50,50);
@@ -133,6 +134,56 @@ public class ProgramController {
             }
         }
         xButton.setVisible(false);
+    }
+
+    public void addAnimal(int index,int price){
+       boolean finished = false;
+        for(int i = 0;i < animals.length&&!finished;i++){
+            if(animals[i]==null){
+                finished = true;
+                userInterface.addCash(-price);
+                switch(index){
+                    case 1:
+                        animals[i] = new Worm(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 2:
+                        animals[i] = new Eichhörnchen(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 3:
+                        animals[i] = new Fox(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 4:
+                        animals[i] = new Rabbit(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 5:
+                        animals[i] = new Hirsch(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 6:
+                        animals[i] = new Schnecke(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 7:
+                        animals[i] = new Bird(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 8:
+                        animals[i] = new WildPig(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                    case 9:
+                        animals[i] = new Goat(500,300);
+                        uiController.drawObject(animals[i]);
+                        break;
+                }
+                uiController.removeObject(shop);
+                uiController.drawObject(shop);
+            }
+        }
     }
 
 

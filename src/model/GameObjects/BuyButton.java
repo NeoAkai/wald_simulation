@@ -26,23 +26,51 @@ public class BuyButton extends GraphicalObject {
         if(visible) drawTool.drawImage(getMyImage(),x,y);
     }
 
-    //lol
+
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.getX()>x&&e.getX()<x+26&&e.getY()>y&&e.getY()<y+15){
-            if(klicked){
+        if(e.getX()>x&&e.getX()<x+26&&e.getY()>y&&e.getY()<y+15) {
+            if (visible) {
+                if (klicked) {
+                    switch (product) {
+                        case 0:
 
+                            break;
+                        case 1:
+
+                            break;
+                        case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+
+                        case 4:
+
+                            break;
+
+                        case 5:
+                            if(pc.getCash()>=200){
+                                pc.addAnimal(1,200);
+                            }
+                            break;
+
+                    }
+
+
+                }
             }
+            klicked = !klicked;
         }
-        klicked = !klicked;
     }
 
     public boolean isVisible() {
         return visible;
     }
 
-    //lol
+
 
     public void setVisible(boolean visible) {
         this.visible = visible;
