@@ -74,7 +74,6 @@ public class SQLHandler {
     }
 
     public void addGrass(int x, int y, boolean treePlantable){
-        System.out.println(1);
         int i = 0;
         if(treePlantable){
             i = 1;

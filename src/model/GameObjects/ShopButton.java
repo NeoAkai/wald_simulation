@@ -73,6 +73,15 @@ public class ShopButton extends MenuButton {
         }
     }
 
+    public void resetButtonsOnDrawingPanel(){
+        for(BuyButton b : buyButtons){
+            if(b != null){
+                pc.getUiController().removeObject(b);
+                pc.getUiController().drawObject(b);
+            }
+        }
+    }
+
 }
 
 

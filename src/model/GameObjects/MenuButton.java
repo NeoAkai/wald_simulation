@@ -73,7 +73,6 @@ public abstract class MenuButton extends GraphicalObject {
             if(active == true){
                 onButtonActivation();
             }else{
-                System.out.println(1);
                 onButtonDeactivation();
             }
         }

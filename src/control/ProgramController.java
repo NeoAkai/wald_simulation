@@ -84,7 +84,7 @@ public class ProgramController {
         //uiController.drawObject(worm);
         xButton = new XButton(1050,5,this);
         uiController.drawObject(xButton);
-        shop = new shop(50,50);
+        //shop = new shop(50,50);
         uiController.drawObject(shop);
 
 
@@ -137,7 +137,7 @@ public class ProgramController {
     }
 
     public void addAnimal(int index,int price){
-       boolean finished = false;
+        boolean finished = false;
         for(int i = 0;i < animals.length&&!finished;i++){
             if(animals[i]==null){
                 finished = true;
@@ -180,8 +180,9 @@ public class ProgramController {
                         uiController.drawObject(animals[i]);
                         break;
                 }
-                uiController.removeObject(shop);
-                uiController.drawObject(shop);
+                uiController.removeObject(buttons[2]);
+                uiController.drawObject(buttons[2]);
+                ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
             }
         }
     }
