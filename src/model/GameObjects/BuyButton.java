@@ -26,6 +26,8 @@ public class BuyButton extends GraphicalObject {
         if(visible) drawTool.drawImage(getMyImage(),x,y);
     }
 
+    //lol
+
     @Override
     public void mouseReleased(MouseEvent e) {
         if(e.getX()>x&&e.getX()<x+26&&e.getY()>y&&e.getY()<y+15){
