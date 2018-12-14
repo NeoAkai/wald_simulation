@@ -37,6 +37,7 @@ public class SQLHandler {
                 stmt.execute("CREATE TABLE JA_Grass(" +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
+                        "treePlantable boolean NOT NULL," +
                         "PRIMARY KEY (x,y)" +
                         ");");
                 stmt.execute("CREATE TABLE JA_Baum (" +
@@ -72,10 +73,15 @@ public class SQLHandler {
         }
     }
 
-    public void addGrass(int x, int y){
+    public void addGrass(int x, int y, boolean treePlantable){
+        System.out.println(1);
+        int i = 0;
+        if(treePlantable){
+            i = 1;
+        }
         try {
-            stmt.execute("INSERT INTO JA_Grass (x, y)" +
-                    "VALUES ('" + x + "', '" + y + "');");
+            stmt.execute("INSERT INTO JA_Grass (x, y, treePlantable)" +
+                    "VALUES ('" + x + "', '" + y + "', '" + i + "');");
         } catch(Exception e){
             if(getDebugMsg) System.out.println("Grass nicht hinzugefügt");
         }

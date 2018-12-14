@@ -57,17 +57,17 @@ public class MapBuilder {
                         currentLetter = "" + c[a];
 
                         if (currentLetter.equals("G")) {
-                            grass[i][a] = new Grass(tempX, tempY);
+                            grass[i][a] = new Grass(tempX, tempY, false);
                             ui.drawObject(grass[i][a]);
-                            pc.getSqlCreator().addGrass(i,a);
+                            pc.getSqlCreator().addGrass(i,a,false);
                         }
 
                         if (currentLetter.equals("T")||currentLetter.equals("B")) {
-                            grass[i][a] = new Grass(tempX, tempY);
+                            grass[i][a] = new Grass(tempX, tempY, true);
                             ui.drawObject(grass[i][a]);
-                            grass[i][a].setCoveringObject(new Tree(tempX, tempY, currentLetter, pc));
+                            grass[i][a].plant(new Tree(tempX, tempY, currentLetter, pc));
                             ui.drawObject(grass[i][a].getCoveringObject());
-                            pc.getSqlCreator().addGrass(i,a);
+                            pc.getSqlCreator().addGrass(i,a,true);
                             pc.getSqlCreator().addTree(i,a,currentLetter);
                         }
                         tempX = tempX + 50;
@@ -87,7 +87,7 @@ public class MapBuilder {
             while (results.next()) {
                 int x = results.getInt(1);
                 int y = results.getInt(2);
-                grass[x][y] = new Grass(50*y,50*x+50);
+                grass[x][y] = new Grass(50*y,50*x+50, results.getBoolean(3));
                 ui.drawObject(grass[x][y]);
             }
         }catch (Exception e){
