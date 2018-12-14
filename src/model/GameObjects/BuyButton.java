@@ -56,6 +56,46 @@ public class BuyButton extends GraphicalObject {
                                 pc.addAnimal(1,200);
                             }
                             break;
+                        case 6:
+                            if(pc.getCash()>=500){
+                                pc.addAnimal(2,500);
+                            }
+                            break;
+                        case 7:
+                            if(pc.getCash()>=600){
+                                pc.addAnimal(3,600);
+                            }
+                            break;
+                        case 8:
+                            if(pc.getCash()>=600){
+                                pc.addAnimal(4,600);
+                            }
+                            break;
+                        case 9:
+                            if(pc.getCash()>=1000){
+                                pc.addAnimal(5,1000);
+                            }
+                            break;
+                        case 10:
+                            if(pc.getCash()>=800){
+                                pc.addAnimal(6,800);
+                            }
+                            break;
+                        case 11:
+                            if(pc.getCash()>=350){
+                                pc.addAnimal(7,350);
+                            }
+                            break;
+                        case 12:
+                            if(pc.getCash()>=1200){
+                                pc.addAnimal(8,1200);
+                            }
+                            break;
+                        case 13:
+                            if(pc.getCash()>=2000){
+                                pc.addAnimal(9,2000);
+                            }
+                            break;
 
                     }
 
