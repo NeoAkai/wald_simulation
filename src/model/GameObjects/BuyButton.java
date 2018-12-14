@@ -42,6 +42,8 @@ public class BuyButton extends GraphicalObject {
         return visible;
     }
 
+    //lol
+
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
