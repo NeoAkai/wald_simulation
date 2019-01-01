@@ -1,6 +1,7 @@
 package control;
 
 import mapObjects.Tree;
+import model.GameObjects.UserInterface;
 import model.MapBuildingObject.MapBuilder;
 
 import java.sql.Connection;
@@ -14,9 +15,11 @@ public class SQLHandler {
     private Statement stmt;
 
     private MapBuilder mapBuilder;
+    private UserInterface userInterface;
 
-    public SQLHandler(MapBuilder mapBuilder){
+    public SQLHandler(MapBuilder mapBuilder, UserInterface userInterface){
         this.mapBuilder = mapBuilder;
+        this.userInterface = userInterface;
     }
 
     public void handleSQL(){
@@ -32,8 +35,11 @@ public class SQLHandler {
                         "ID int NOT NULL AUTO_INCREMENT," +
                         "geld int," +
                         "holz int," +
+                        "harmonie int," +
                         "PRIMARY KEY(ID)" +
                         ")");
+                stmt.execute("INSERT INTO  JA_Farmer (geld, holz, harmonie)" +
+                        "VALUES (500, 0, 0);");
                 stmt.execute("CREATE TABLE JA_Grass(" +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
@@ -48,17 +54,48 @@ public class SQLHandler {
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
+                stmt.execute("CREATE TABLE JA_Tier (" +
+                        "ID int NOT NULL AUTO_INCREMENT," +
+                        "art varchar(255) NOT NULL," +
+                        "stallID int," +
+                        "PRIMARY KEY (ID)" + //Komma nicht vergessen
+                        //"FOREIGN KEY (stallID) REFERENCES JA_STALL(ID)" +
+                        ");");
                 mapBuilder.loadFromTxt();
             }catch (Exception e){
                 try{
                     loadDatabase();
                 }catch(Exception e2){
-                    if(getDebugMsg) System.out.println("Baum ResultSet nicht erstellt");
+                    if(getDebugMsg) System.out.println("ResultSets nicht erstellt");
                 }
 
             }
         }catch(Exception e){
             if(getDebugMsg) e.printStackTrace();
+        }
+    }
+
+    public void updateWood(){
+        try {
+            stmt.execute("UPDATE JA_Farmer SET holz = " + userInterface.getWood() +" WHERE ID = 1;");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCash(){
+        try {
+            stmt.execute("UPDATE JA_Farmer SET geld = " + userInterface.getCash() +" WHERE ID = 1;");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateHarmony(){
+        try {
+            stmt.execute("UPDATE JA_Farmer SET harmonie = " + userInterface.getHarmony() +" WHERE ID = 1;");
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -102,6 +139,11 @@ public class SQLHandler {
         }catch (Exception e) {
             if(getDebugMsg) System.out.println("Tabelle Grass nicht gelöscht");
         }
+        try{
+            stmt.execute("DROP TABLE JA_Tier;");
+        }catch (Exception e) {
+            if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
+        }
 
 
     }
@@ -110,6 +152,12 @@ public class SQLHandler {
         try {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
             mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
+            ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
+            while(results.next()) {
+                userInterface.addCash(results.getInt(2));
+                userInterface.addWood(results.getInt(3));
+                userInterface.addHarmony(results.getInt(4));
+            }
         }catch(Exception e){
 
         }

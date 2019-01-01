@@ -30,7 +30,7 @@ public class ProgramController {
     private WildPig wildPig;
     private Worm worm;
     private UserInterface userInterface;
-    private SQLHandler sqlCreator;
+    private SQLHandler sqlHandler;
     private XButton xButton;
     private shop shop;
     private MenuButton[] buttons;
@@ -60,31 +60,12 @@ public class ProgramController {
         grass = new Grass[13][28];
         tree = new Tree[13][28];
         mapBuilder = new MapBuilder(grass,tree,uiController,this);
-        sqlCreator = new SQLHandler(mapBuilder);
-        sqlCreator.handleSQL();
+        sqlHandler = new SQLHandler(mapBuilder, userInterface);
+        sqlHandler.handleSQL();
         cat = new Cat(200,500);
         uiController.drawObject(cat);
-        //bird = new Bird(300,400);
-        //uiController.drawObject(bird);
-        //eichhörnchen = new Eichhörnchen(700,500);
-        //uiController.drawObject(eichhörnchen);
-        //fox = new Fox(473,507);
-        //uiController.drawObject(fox);
-        //goat = new Goat(1000,395);
-        //uiController.drawObject(goat);
-        //hirsch = new Hirsch(933,698);
-        //uiController.drawObject(hirsch);
-        //rabbit = new Rabbit(655,555);
-        //uiController.drawObject(rabbit);
-        //schnecke = new Schnecke(823,222);
-        //uiController.drawObject(schnecke);
-        //wildPig = new WildPig(539,111);
-        //uiController.drawObject(wildPig);
-        //worm = new Worm(666,283);
-        //uiController.drawObject(worm);
         xButton = new XButton(1050,5,this);
         uiController.drawObject(xButton);
-        //shop = new shop(50,50);
         uiController.drawObject(shop);
 
 
@@ -106,6 +87,7 @@ public class ProgramController {
 
     public void addWood(int amount){
         userInterface.addWood(amount);
+        sqlHandler.updateWood();
     }
 
     public void addCash(int amount){
@@ -183,6 +165,7 @@ public class ProgramController {
                 uiController.removeObject(buttons[2]);
                 uiController.drawObject(buttons[2]);
                 ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
+                sqlHandler.updateCash();
             }
         }
     }
@@ -204,7 +187,7 @@ public class ProgramController {
                     treeRemoved = true;
                     grass[i][j].setCoveringObject(null);
                     uiController.removeObject(t);
-                    sqlCreator.removeTreeFromDatabase(i,j);
+                    sqlHandler.removeTreeFromDatabase(i,j);
                 }
             }
         }
@@ -221,8 +204,8 @@ public class ProgramController {
         return userInterface.getHarmony();
     }
 
-    public SQLHandler getSqlCreator() {
-        return sqlCreator;
+    public SQLHandler getSqlHandler() {
+        return sqlHandler;
     }
 
     public UIController getUiController() {

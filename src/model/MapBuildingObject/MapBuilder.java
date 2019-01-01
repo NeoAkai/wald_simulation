@@ -1,13 +1,11 @@
 package model.MapBuildingObject;
 
-import control.*;
 import mapObjects.*;
 import control.ProgramController;
 import control.framework.UIController;
 
 import java.io.*;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class MapBuilder {
 
@@ -28,7 +26,8 @@ public class MapBuilder {
     }
 
     public void loadFromTxt() {
-        //System.out.println(1);
+        System.out.println(1);
+        pc.addCash(500);
 
 
         BufferedReader reader;
@@ -59,7 +58,7 @@ public class MapBuilder {
                         if (currentLetter.equals("G")) {
                             grass[i][a] = new Grass(tempX, tempY, false);
                             ui.drawObject(grass[i][a]);
-                            pc.getSqlCreator().addGrass(i,a,false);
+                            pc.getSqlHandler().addGrass(i,a,false);
                         }
 
                         if (currentLetter.equals("T")||currentLetter.equals("B")) {
@@ -67,8 +66,8 @@ public class MapBuilder {
                             ui.drawObject(grass[i][a]);
                             grass[i][a].plant(new Tree(tempX, tempY, currentLetter, pc));
                             ui.drawObject(grass[i][a].getCoveringObject());
-                            pc.getSqlCreator().addGrass(i,a,true);
-                            pc.getSqlCreator().addTree(i,a,currentLetter);
+                            pc.getSqlHandler().addGrass(i,a,true);
+                            pc.getSqlHandler().addTree(i,a,currentLetter);
                         }
                         tempX = tempX + 50;
                     }

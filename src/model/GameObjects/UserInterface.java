@@ -6,11 +6,9 @@ import view.framework.DrawTool;
 public class UserInterface extends GraphicalObject  {
 
     //Atribute
-    private int width;
-    private int heigth;
-    private int wood = 0;
-    private int cash = 500;
-    private int harmony = 0;
+    private int wood;
+    private int cash;
+    private int harmony;
 
 
     //Referenzen
@@ -40,12 +38,16 @@ public class UserInterface extends GraphicalObject  {
         wood = wood + amount;
     }
 
+    public void addHarmony(int amount) { harmony = harmony + amount; }
+
     public int getWood(){
         return wood;
     }
+
     public int getCash(){
         return cash;
     }
+
     public int getHarmony(){
         return harmony;
     }
