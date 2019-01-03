@@ -129,37 +129,71 @@ public class ProgramController {
                 break;
             case 6:
 
-                Barn b = new Barn("wurm", g.getx(),g.gety());
-                if(g.plant(b)) {
+                Barn a = new Barn("wurm", g.getx(),g.gety());
+                if(g.plant(a)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "wurm");
-                    uiController.drawObject(b);
+                    uiController.drawObject(a);
                     redrawShop();
                 }
                 break;
             case 7:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"eichhoernchen");
+                Barn b = new Barn("eichhoernchen", g.getx(),g.gety());
+                if(g.plant(b)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "eichhoernchen");
+                    uiController.drawObject(b);
+                    redrawShop();
+                }
                 break;
             case 8:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"fuchs");
+                Barn c = new Barn("fuchs", g.getx(),g.gety());
+                if(g.plant(c)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "fuchs");
+                    uiController.drawObject(c);
+                    redrawShop();
+                }
                 break;
             case 9:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn d = new Barn("hase", g.getx(),g.gety());
+                if(g.plant(d)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "hase");
+                    uiController.drawObject(d);
+                    redrawShop();
+                }                break;
             case 10:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn e = new Barn("hirsch", g.getx(),g.gety());
+                if(g.plant(e)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "hirsch");
+                    uiController.drawObject(e);
+                    redrawShop();
+                }                break;
             case 11:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn f = new Barn("schnecke", g.getx(),g.gety());
+                if(g.plant(f)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "schnecke");
+                    uiController.drawObject(f);
+                    redrawShop();
+                }                break;
             case 12:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn h = new Barn("vogel", g.getx(),g.gety());
+                if(g.plant(h)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "vogel");
+                    uiController.drawObject(h);
+                    redrawShop();
+                }                break;
             case 13:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn i = new Barn("wildschwein", g.getx(),g.gety());
+                if(g.plant(i)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "wildschwein");
+                    uiController.drawObject(i);
+                    redrawShop();
+                }                break;
             case 14:
-                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
-                break;
+                Barn j = new Barn("ziege", g.getx(),g.gety());
+                if(g.plant(j)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "ziege");
+                    uiController.drawObject(j);
+                    redrawShop();
+                }                break;
         }
     }
 
@@ -206,7 +240,7 @@ public class ProgramController {
                     case 1:
                         freeAnimals[i] = new Worm(500,300);
                         uiController.drawObject(freeAnimals[i]);
-                        sqlHandler.addAnimal("wurm", null);
+
                         break;
                     case 2:
                         freeAnimals[i] = new Eichhörnchen(500,300);
