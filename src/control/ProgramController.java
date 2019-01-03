@@ -130,8 +130,9 @@ public class ProgramController {
             case 6:
 
                 sqlHandler.addBarn(g.gety()/50,g.getx()/50,"wurm");
-                Barn b = new Barn("wurm", g.gety(),g.getx());
-                g.plant(b);
+                Barn b = new Barn("wurm", g.getx(),g.gety());
+                g.setCoveringObject(b);
+                uiController.drawObject(b);
                 break;
             case 7:
                 sqlHandler.addBarn(g.getx()/50,g.gety()/50,"eichhoernchen");
@@ -203,6 +204,7 @@ public class ProgramController {
                     case 1:
                         freeAnimals[i] = new Worm(500,300);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("wurm", null);
                         break;
                     case 2:
                         freeAnimals[i] = new Eichhörnchen(500,300);
@@ -241,6 +243,53 @@ public class ProgramController {
                 uiController.drawObject(buttons[2]);
                 ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
                 sqlHandler.updateCash();
+            }
+        }
+    }
+
+    public void addAnimalFromDatabase(int index){
+        boolean finished = false;
+        for(int i = 0; i < freeAnimals.length&&!finished; i++) {
+            if (freeAnimals[i] == null) {
+                finished = true;
+                switch(index){
+                    case 1:
+                        freeAnimals[i] = new Worm(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 2:
+                        freeAnimals[i] = new Eichhörnchen(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 3:
+                        freeAnimals[i] = new Fox(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 4:
+                        freeAnimals[i] = new Rabbit(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 5:
+                        freeAnimals[i] = new Hirsch(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 6:
+                        freeAnimals[i] = new Schnecke(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 7:
+                        freeAnimals[i] = new Bird(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 8:
+                        freeAnimals[i] = new WildPig(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case 9:
+                        freeAnimals[i] = new Goat(500,300);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                }
             }
         }
     }
