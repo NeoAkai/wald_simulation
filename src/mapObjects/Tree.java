@@ -58,20 +58,6 @@ public class Tree extends CoveringObject  {
         axeable = b;
     }
 
-    /*public void mouseReleased(MouseEvent e){
-        if(klicked) {
-            if (realAxeable && living) {
-                if (e.getX() > x && e.getX() < x + width && e.getY() > y - 50 && e.getY() < y + heigth - 50) {
-                    if(!parasiten) pc.updateWood((int) (Math.random() * 12 + 8));
-                    //living = false;
-                    pc.removeTree(this);
-                    //createAndSetNewImage("assets/images/grass.png"); //wichtig, da sonst Grafikfehler auftritt!
-                    //imgload = true;
-                }
-            }
-        }
-        klicked = !klicked;
-    }*/
 
     public void real(boolean b){
         realAxeable = b;

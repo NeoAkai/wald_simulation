@@ -54,12 +54,20 @@ public class SQLHandler {
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
+                stmt.execute("CREATE TABLE JA_Stall (" +
+                        "ID int NOT NULL AUTO_INCREMENT," +
+                        "typ varchar(255) NOT NULL," +
+                        "x int NOT NULL," +
+                        "y int NOT NULL," +
+                        "PRIMARY KEY (ID)," +
+                        "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
+                        ");");
                 stmt.execute("CREATE TABLE JA_Tier (" +
                         "ID int NOT NULL AUTO_INCREMENT," +
                         "art varchar(255) NOT NULL," +
                         "stallID int," +
-                        "PRIMARY KEY (ID)" + //Komma nicht vergessen
-                        //"FOREIGN KEY (stallID) REFERENCES JA_STALL(ID)" +
+                        "PRIMARY KEY (ID)," +
+                        "FOREIGN KEY (stallID) REFERENCES JA_Stall(ID)" +
                         ");");
                 mapBuilder.loadFromTxt();
             }catch (Exception e){
@@ -69,7 +77,7 @@ public class SQLHandler {
                     if(getDebugMsg) System.out.println("ResultSets nicht erstellt");
                 }
 
-            }
+            }//*/
         }catch(Exception e){
             if(getDebugMsg) e.printStackTrace();
         }
@@ -123,6 +131,15 @@ public class SQLHandler {
         }
     }
 
+    public void addBarn(int x, int y, String type){
+        try{
+            stmt.execute("INSERT INTO JA_Stall (x, y, typ)" +
+                    "VALUES ('" + x + "', '" + y + "', '" + type + "');");
+        }catch (Exception e){
+            if(getDebugMsg) System.out.println("Stall nicht hinzugefügt");
+        }
+    }
+
     private void dropAll(){
         try{
             stmt.execute("DROP TABLE JA_Farmer;");
@@ -135,6 +152,11 @@ public class SQLHandler {
             if(getDebugMsg) System.out.println("Tabelle Baum nicht gelöscht");
         }
         try{
+            stmt.execute("DROP TABLE JA_Stall;");
+        }catch (Exception e) {
+            if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
+        }
+        try{
             stmt.execute("DROP TABLE JA_Grass;");
         }catch (Exception e) {
             if(getDebugMsg) System.out.println("Tabelle Grass nicht gelöscht");
@@ -145,13 +167,13 @@ public class SQLHandler {
             if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
         }
 
-
     }
 
     private void loadDatabase(){
         try {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
             mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
+            mapBuilder.loadBarnsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall"));
             ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
             while(results.next()) {
                 userInterface.addCash(results.getInt(2));

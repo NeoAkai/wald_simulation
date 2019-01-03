@@ -7,9 +7,9 @@ import java.awt.event.MouseEvent;
 public class PickUpButton extends MenuButton{
 
 
-    public PickUpButton(double x, double y, int width, int height, ProgramController pc) {
-        super(x, y, width, height, pc);
-
+    public PickUpButton(double x, double y, ProgramController pc) {
+        super(x, y, 40, 40, pc);
+        createAndSetNewImage("assets/images/UiImages/pickUpButton.png");
     }
 
     @Override

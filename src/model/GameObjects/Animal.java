@@ -23,6 +23,8 @@ public class Animal extends GraphicalObject {
         drawTool.drawImage(getMyImage(),x,y);
         if(!imageSet){
             createAndSetNewImage(pathToImageRight);
+            width = getMyImage().getWidth();
+            height = getMyImage().getHeight();
             imageSet = true;
         }
     }

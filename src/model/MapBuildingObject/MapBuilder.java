@@ -3,6 +3,7 @@ package model.MapBuildingObject;
 import mapObjects.*;
 import control.ProgramController;
 import control.framework.UIController;
+import model.GameObjects.Barn;
 
 import java.io.*;
 import java.sql.ResultSet;
@@ -100,6 +101,19 @@ public class MapBuilder {
                 int x = results.getInt(3);
                 int y = results.getInt(4);
                 grass[x][y].setCoveringObject(new Tree(50*y, 50*x+50, results.getString(2), pc));
+                ui.drawObject(grass[x][y].getCoveringObject());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadBarnsFromDatabase(ResultSet results){
+        try{
+            while (results.next()){
+                int x = results.getInt(3);
+                int y = results.getInt(4);
+                grass[x][y].setCoveringObject(new Barn(results.getString(2), 50*y, 50*x+50));
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
         }catch (Exception e){
