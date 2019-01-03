@@ -4,11 +4,10 @@ import mapObjects.CoveringObject;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
-public class Barn extends CoveringObject {
+public class Barn extends ProducingObject {
 
     private String type;
     private Animal[] animals;
-    private double itemCooldown, maxItemCooldown, progressBarColorR, progressBarWidth, progressBarPercentage;
 
     public Barn(String type, double x, double y){
         this.x = x;
@@ -19,14 +18,10 @@ public class Barn extends CoveringObject {
         maxItemCooldown = 61;
     }
 
-    @Override
+    /*@Override
     public void draw(DrawTool drawTool) {
-        drawTool.drawImage(getMyImage(),x,y);
-        drawTool.setCurrentColor(200,200,200,255);
-        drawTool.drawFilledRectangle(x,y+50,50,3);
-        drawTool.setCurrentColor((int)progressBarColorR,255,0,255);
-        drawTool.drawFilledRectangle(x,y+50,progressBarWidth,3);
-    }
+
+    }*/
 
     @Override
     public void update(double dt) {
