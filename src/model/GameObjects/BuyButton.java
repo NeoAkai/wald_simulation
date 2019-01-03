@@ -12,11 +12,13 @@ public class BuyButton extends GraphicalObject {
     private int product;
     private ProgramController pc;
     private boolean klicked = false;
+    private ShopButton sB;
 
-    public BuyButton(double x, double y,int product, ProgramController pc){
+    public BuyButton(double x, double y,int product, ProgramController pc, ShopButton sB){
         this.x = x;
         this.y = y;
         this.pc = pc;
+        this.sB = sB;
         createAndSetNewImage("assets/images/UiImages/buy.png");
         this.product = product;
     }
@@ -99,6 +101,7 @@ public class BuyButton extends GraphicalObject {
 
                     }
 
+                    sB.onButtonDeactivation();
 
                 }
             }

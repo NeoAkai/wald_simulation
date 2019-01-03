@@ -56,13 +56,13 @@ public class ShopButton extends MenuButton {
 
     private void createButtons(){
         for(int i = 0; i < 5; i++){
-            buyButtons[i] = new BuyButton(550,180 + i*28, i,pc);
+            buyButtons[i] = new BuyButton(550,180 + i*28, i,pc,this);
         }
         for(int i = 5; i < 14; i++) {
-            buyButtons[i] = new BuyButton(550, 400 + (i-5) * 28, i,pc);
+            buyButtons[i] = new BuyButton(550, 400 + (i-5) * 28, i,pc,this);
         }
         for(int i = 14; i < 23; i++) {
-            buyButtons[i] = new BuyButton(1200, 170 + (i-14) *29, i,pc);
+            buyButtons[i] = new BuyButton(1200, 170 + (i-14) *29, i,pc,this);
         }
 
     }
