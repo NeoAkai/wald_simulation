@@ -1,21 +1,28 @@
 package mapObjects;
 
+import control.ProgramController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
+
+import java.awt.event.MouseEvent;
 
 public class Grass extends GraphicalObject  {
 
     //Atribute
     private boolean treePlantable;
+    private boolean klickable = false;
+    private boolean klicked = true;
+    private ProgramController pc;
 
     //Referenzen
     private CoveringObject coveringObject;
 
 
-    public Grass(double x, double y, boolean treePlantable){
+    public Grass(double x, double y, boolean treePlantable, ProgramController pc){
         this.x = x;
         this.y = y;
         this.treePlantable = treePlantable;
+        this.pc = pc;
         createAndSetNewImage("assets/images/MapObjectImages/grass.png");
 
     }
@@ -49,6 +56,25 @@ public class Grass extends GraphicalObject  {
         }
 
         return b;
+    }
+
+    public boolean getTreePlantable(){
+        return treePlantable;
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (klicked) {
+            if (klickable) {
+                if (e.getX() >= x && e.getX() <= x + 50 && e.getY() >= y && e.getY() <= y + 50) {
+                    System.out.println("HalloWelt");
+                    pc.removeKlickableGrass();
+                }
+            }
+        }
+        klicked = !klicked;
+    }
+    public void setKlickable(boolean a){
+        klickable = a;
     }
 }
 

@@ -98,10 +98,55 @@ public class BuyButton extends GraphicalObject {
                                 pc.addAnimal(9,2000);
                             }
                             break;
-
+                        case 14:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(6,3000,1337,false);
+                            }
+                            break;
+                        case 15:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(7,3500,2200,false);
+                            }
+                            break;
+                        case 16:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(8,4000,2400,false);
+                            }
+                            break;
+                        case 17:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(9,4000,2400,false);
+                            }
+                            break;
+                        case 18:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(10,6500,4000,false);
+                            }
+                            break;
+                        case 19:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(11,4800,2500,false);
+                            }
+                            break;
+                        case 20:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(12,2000,2600,false);
+                            }
+                            break;
+                        case 21:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(13,8500,5200,false);
+                            }
+                            break;
+                        case 22:
+                            if(pc.getCash()>=3000&&pc.getWood()>=1337){
+                                pc.build(14,12000,7350,false);
+                            }
+                            break;
                     }
 
                     sB.onButtonDeactivation();
+                    pc.deactivateButton();
 
                 }
             }

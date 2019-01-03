@@ -86,6 +86,25 @@ public class ProgramController {
 
     }
 
+    public void build(int index, int price, int woodprice, boolean tree){
+    addCash(-price);
+    addWood(-woodprice);
+    if(tree) {
+        for (int i = 0; i < grass.length; i++) {
+            for (int e = 0; e < grass[0].length; e++) {
+                if(grass[i][e].getTreePlantable())grass[i][e].setKlickable(true);
+            }
+        }
+    }else if(!tree) {
+        for (int i = 0; i < grass.length; i++) {
+            for (int e = 0; e < grass[0].length; e++) {
+                if(!grass[i][e].getTreePlantable())grass[i][e].setKlickable(true);
+            }
+        }
+    }
+
+
+    }
 
     public void addWood(int amount){
         userInterface.addWood(amount);
@@ -191,6 +210,13 @@ public class ProgramController {
                     uiController.removeObject(t);
                     sqlHandler.removeTreeFromDatabase(i,j);
                 }
+            }
+        }
+    }
+    public void removeKlickableGrass(){
+        for(int i = 0; i < grass.length; i++){
+            for(int e = 0; e < grass[0].length; e++){
+                grass[i][e].setKlickable(false);
             }
         }
     }
