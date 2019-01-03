@@ -92,18 +92,72 @@ public class ProgramController {
     if(tree) {
         for (int i = 0; i < grass.length; i++) {
             for (int e = 0; e < grass[0].length; e++) {
-                if(grass[i][e].getTreePlantable())grass[i][e].setKlickable(true);
+                if(grass[i][e].getTreePlantable())grass[i][e].setKlickable(true, index);
             }
         }
     }else if(!tree) {
         for (int i = 0; i < grass.length; i++) {
             for (int e = 0; e < grass[0].length; e++) {
-                if(!grass[i][e].getTreePlantable())grass[i][e].setKlickable(true);
+                if(!grass[i][e].getTreePlantable())grass[i][e].setKlickable(true, index);
             }
         }
     }
 
 
+
+
+    }
+
+    public void addBarn(Grass g, int index){
+
+        System.out.println(g.getx()/50);
+        switch(index) {
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
+
+                sqlHandler.addBarn(g.gety()/50,g.getx()/50,"wurm");
+                Barn b = new Barn("wurm", g.gety(),g.getx());
+                g.plant(b);
+                break;
+            case 7:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"eichhoernchen");
+                break;
+            case 8:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"fuchs");
+                break;
+            case 9:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+            case 10:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+            case 11:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+            case 12:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+            case 13:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+            case 14:
+                sqlHandler.addBarn(g.getx()/50,g.gety()/50,"a");
+                break;
+        }
     }
 
     public void addWood(int amount){
@@ -216,7 +270,7 @@ public class ProgramController {
     public void removeKlickableGrass(){
         for(int i = 0; i < grass.length; i++){
             for(int e = 0; e < grass[0].length; e++){
-                grass[i][e].setKlickable(false);
+                grass[i][e].setKlickable(false, -1);
             }
         }
     }
