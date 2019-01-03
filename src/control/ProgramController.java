@@ -129,10 +129,12 @@ public class ProgramController {
                 break;
             case 6:
 
-                sqlHandler.addBarn(g.gety()/50,g.getx()/50,"wurm");
                 Barn b = new Barn("wurm", g.getx(),g.gety());
-                g.setCoveringObject(b);
-                uiController.drawObject(b);
+                if(g.plant(b)) {
+                    sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "wurm");
+                    uiController.drawObject(b);
+                    redrawShop();
+                }
                 break;
             case 7:
                 sqlHandler.addBarn(g.getx()/50,g.gety()/50,"eichhoernchen");
@@ -239,12 +241,16 @@ public class ProgramController {
                         uiController.drawObject(freeAnimals[i]);
                         break;
                 }
-                uiController.removeObject(buttons[2]);
-                uiController.drawObject(buttons[2]);
-                ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
+                redrawShop();
                 sqlHandler.updateCash();
             }
         }
+    }
+
+    private void redrawShop(){
+        uiController.removeObject(buttons[2]);
+        uiController.drawObject(buttons[2]);
+        ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
     }
 
     public void addAnimalFromDatabase(int index){
