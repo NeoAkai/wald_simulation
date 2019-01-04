@@ -220,6 +220,7 @@ public class ProgramController {
 
     public void addCash(int amount){
         userInterface.addCash(amount);
+        sqlHandler.updateCash();
     }
 
     public void setShop(boolean b){

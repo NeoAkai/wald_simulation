@@ -60,6 +60,7 @@ public class SQLHandler {
                         "typ varchar(255) NOT NULL," +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
+                        //"isGrown BIT  ," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
@@ -180,6 +181,11 @@ public class SQLHandler {
             if(getDebugMsg) System.out.println("Tabelle Baum nicht gelöscht");
         }
         try{
+            stmt.execute("DROP TABLE JA_Tier;");
+        }catch (Exception e) {
+            if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
+        }
+        try{
             stmt.execute("DROP TABLE JA_Stall;");
         }catch (Exception e) {
             if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
@@ -189,11 +195,6 @@ public class SQLHandler {
         }catch (Exception e) {
             if(getDebugMsg) System.out.println("Tabelle Grass nicht gelöscht");
         }
-        try{
-            stmt.execute("DROP TABLE JA_Tier;");
-        }catch (Exception e) {
-            if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
-        }
 
     }
 
@@ -202,8 +203,8 @@ public class SQLHandler {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
             mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
             mapBuilder.loadBarnsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall;"));
-            ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
             loadAnimals();
+            ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
             while(results.next()) {
                 userInterface.addCash(results.getInt(2));
                 userInterface.addWood(results.getInt(3));
