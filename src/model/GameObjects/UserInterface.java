@@ -7,7 +7,7 @@ public class UserInterface extends GraphicalObject  {
 
     //Atribute
     private int wood;
-    private int cash;
+    private int cash = 500000;
     private int harmony;
 
 

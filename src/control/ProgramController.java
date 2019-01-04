@@ -19,6 +19,7 @@ public class ProgramController {
     private Grass[][] grass;
     private Tree[][] tree;
     private Barn[][] barns;
+    private Plant[][] plants;
     private Cat cat;
     private Animal[] freeAnimals = new Animal[10];
     private Bird bird;
@@ -61,6 +62,7 @@ public class ProgramController {
         grass = new Grass[13][28];
         tree = new Tree[13][28];
         barns = new Barn[13][28];
+        plants = new Plant[13][28];
         mapBuilder = new MapBuilder(grass,tree,uiController,this);
         sqlHandler = new SQLHandler(mapBuilder, userInterface);
         sqlHandler.handleSQL();
@@ -135,12 +137,18 @@ public class ProgramController {
                 uiController.drawObject(g.getCoveringObject());
                 break;
             case 3:
+                g.plant(new Plant("wheat",g.getx(),g.gety()));
+                uiController.drawObject(g.getCoveringObject());
 
                 break;
             case 4:
+                g.plant(new Plant("carrot",g.getx(),g.gety()));
+                uiController.drawObject(g.getCoveringObject());
 
                 break;
             case 5:
+                g.plant(new Plant("cherry",g.getx(),g.gety()));
+                uiController.drawObject(g.getCoveringObject());
 
                 break;
             case 6:
