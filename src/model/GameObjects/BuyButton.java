@@ -37,20 +37,30 @@ public class BuyButton extends GraphicalObject {
                 if (klicked) {
                     switch (product) {
                         case 0:
-
+                            if(pc.getCash()>=10){
+                                pc.build(1,10,0,true);
+                            }
                             break;
                         case 1:
-
+                            if(pc.getCash()>=10){
+                                pc.build(2,10,0,true);
+                            }
                             break;
                         case 2:
-
+                            if(pc.getCash()>=150){
+                                pc.build(3,150,0,false);
+                            }
                             break;
                         case 3:
-
+                            if(pc.getCash()>=150){
+                                pc.build(4,150,0,false);
+                            }
                             break;
 
                         case 4:
-
+                            if(pc.getCash()>=150){
+                                pc.build(5,150,0,false);
+                            }
                             break;
 
                         case 5:

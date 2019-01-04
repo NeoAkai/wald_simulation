@@ -65,7 +65,7 @@ public class MapBuilder {
                         if (currentLetter.equals("T")||currentLetter.equals("B")) {
                             grass[i][a] = new Grass(tempX, tempY, true,pc);
                             ui.drawObject(grass[i][a]);
-                            grass[i][a].plant(new Tree(tempX, tempY, currentLetter, pc));
+                            grass[i][a].plant(new Tree(tempX, tempY, currentLetter, pc,-1));
                             ui.drawObject(grass[i][a].getCoveringObject());
                             pc.getSqlHandler().addGrass(i,a,true);
                             pc.getSqlHandler().addTree(i,a,currentLetter);
@@ -100,7 +100,7 @@ public class MapBuilder {
             while (results.next()){
                 int x = results.getInt(3);
                 int y = results.getInt(4);
-                grass[x][y].setCoveringObject(new Tree(50*y, 50*x+50, results.getString(2), pc));
+                grass[x][y].setCoveringObject(new Tree(50*y, 50*x+50, results.getString(2), pc, -1));
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
         }catch (Exception e){

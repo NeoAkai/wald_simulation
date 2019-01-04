@@ -108,15 +108,25 @@ public class ProgramController {
 
     }
 
-    public void addBarn(Grass g, int index){
+    public void addBuilding(Grass g, int index){
 
-        System.out.println(g.getx()/50);
+
         switch(index) {
             case 1:
-
+            for(int i = 0; i < tree.length; i++){
+                for(int e = 0; e < tree[0].length; e++){
+                    tree[i][e] = new Tree(g.getx(),g.gety(),"T",this,50);
+                    uiController.drawObject(tree[i][e]);
+                }
+            }
                 break;
             case 2:
-
+                for(int i = 0; i < tree.length; i++){
+                    for(int e = 0; e < tree[0].length; e++){
+                        tree[i][e] = new Tree(g.getx(),g.gety(),"B",this,50);
+                        uiController.drawObject(tree[i][e]);
+                    }
+                }
                 break;
             case 3:
 

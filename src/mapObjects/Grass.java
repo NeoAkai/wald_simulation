@@ -69,7 +69,7 @@ public class Grass extends GraphicalObject  {
                 if (e.getX() >= x && e.getX() <= x + 50 && e.getY() >= y && e.getY() <= y + 50) {
 
                     System.out.println(x + "   "+ y);
-                    pc.addBarn(this, index);
+                    pc.addBuilding(this, index);
                     pc.removeKlickableGrass();
                 }
             }

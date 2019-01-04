@@ -21,6 +21,8 @@ public class Tree extends CoveringObject  {
     private ProgramController pc;
     private boolean klicked = false;
     private boolean living = true;
+    private double growTime = 1;
+    private boolean young = true;
 
     private boolean parasiten = false;
     private double parasitenCounter = 300;
@@ -28,28 +30,45 @@ public class Tree extends CoveringObject  {
     //Referenzen
 
 
-    public Tree(double x, double y,String art, ProgramController pc){
+    public Tree(double x, double y,String art, ProgramController pc, double growTime){
         this.x = x;
         this.y = y;
         this.pc = pc;
         this.art = art;
+        this.growTime = growTime;
 
         Hitbox = new Rectangle2D.Double(x,y-50,width,heigth);
 
-        if(art.equals("T")) {
-            createAndSetNewImage("assets/images/MapObjectImages/tree.png");
-        }else if(art.equals("B")){
-            createAndSetNewImage("assets/images/MapObjectImages/birke.png");
-        }
-
+        checkYoungness();
     }
+
+    public void checkYoungness(){
+        if(!young) {
+            if (art.equals("T")) {
+                createAndSetNewImage("assets/images/MapObjectImages/tree.png");
+            } else if (art.equals("B")) {
+                createAndSetNewImage("assets/images/MapObjectImages/birke.png");
+            }
+        }else if(young){
+            if (art.equals("T")) {
+                createAndSetNewImage("assets/images/MapObjectImages/sapling.png");
+            } else if (art.equals("B")) {
+                createAndSetNewImage("assets/images/MapObjectImages/birk_sapling.png");
+            }
+        }
+    }
+
     @Override
     public void draw(DrawTool drawTool) {
         super.draw(drawTool);
-        if(!imgload){
-            drawTool.drawImage(getMyImage(),x,y-50);
-        }else if(imgload){
-            drawTool.drawImage(getMyImage(),x,y);
+        if(!young ) {
+            if (!imgload) {
+                drawTool.drawImage(getMyImage(), x, y - 50);
+            } else if (imgload) {
+                drawTool.drawImage(getMyImage(), x, y);
+            }
+        }else if(young){
+            drawTool.drawImage(getMyImage(), x, y);
         }
 
     }
@@ -85,6 +104,16 @@ public class Tree extends CoveringObject  {
             axeable = false;
             realAxeable = true;
             axeCounter = 0.5;
+        }
+
+
+        if(young){
+            growTime = growTime - dt;
+        }
+
+        if(growTime <= 0 && young){
+            young = false;
+            checkYoungness();
         }
     }
 
