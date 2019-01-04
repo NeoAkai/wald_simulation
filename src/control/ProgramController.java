@@ -110,23 +110,29 @@ public class ProgramController {
 
     public void addBuilding(Grass g, int index){
 
-
         switch(index) {
             case 1:
-            for(int i = 0; i < tree.length; i++){
+            /*for(int i = 0; i < tree.length; i++){
                 for(int e = 0; e < tree[0].length; e++){
-                    tree[i][e] = new Tree(g.getx(),g.gety(),"T",this,50);
+                    tree[i][e] = new Tree(g.getx(),g.gety(),"T",this,5);
+                    g.plant(tree[i][e]);
                     uiController.drawObject(tree[i][e]);
+                    System.out.println(i + " " + e);
                 }
-            }
+            }*/
+                g.plant(new Tree(g.getx(),g.gety(),"T",this,50));
+                uiController.drawObject(g.getCoveringObject());
                 break;
             case 2:
-                for(int i = 0; i < tree.length; i++){
+                /*for(int i = 0; i < tree.length; i++){
                     for(int e = 0; e < tree[0].length; e++){
-                        tree[i][e] = new Tree(g.getx(),g.gety(),"B",this,50);
+                        tree[i][e] = new Tree(g.getx(),g.gety(),"B",this,5);
+                        g.plant(tree[i][e]);
                         uiController.drawObject(tree[i][e]);
                     }
-                }
+                }*/
+                g.plant(new Tree(g.getx(),g.gety(),"B",this,50));
+                uiController.drawObject(g.getCoveringObject());
                 break;
             case 3:
 
@@ -359,9 +365,11 @@ public class ProgramController {
             for(int j = 0; j < grass[i].length && !treeRemoved; j++){
                 if(grass[i][j].getCoveringObject() == t){
                     treeRemoved = true;
+                    System.out.println(grass[i][j].getCoveringObject());
+                    System.out.println(t);
                     grass[i][j].setCoveringObject(null);
                     uiController.removeObject(t);
-                    sqlHandler.removeTreeFromDatabase(i,j);
+                    //sqlHandler.removeTreeFromDatabase(i,j);
                 }
             }
         }

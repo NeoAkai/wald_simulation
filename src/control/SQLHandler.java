@@ -1,6 +1,7 @@
 package control;
 
 import mapObjects.Tree;
+import model.GameObjects.Barn;
 import model.GameObjects.UserInterface;
 import model.MapBuildingObject.MapBuilder;
 
@@ -65,6 +66,7 @@ public class SQLHandler {
                 stmt.execute("CREATE TABLE JA_Tier (" +
                         "ID int NOT NULL AUTO_INCREMENT," +
                         "art varchar(255) NOT NULL," +
+                        "inStall BIT NOT NULL," +
                         "stallID int," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (stallID) REFERENCES JA_Stall(ID)" +
@@ -140,6 +142,32 @@ public class SQLHandler {
         }
     }
 
+    public void addAnimal(String type, Barn barn){
+        try{
+            if(barn == null){
+               stmt.execute("INSERT INTO JA_Tier (art, inStall, stallID)" +
+                       "VALUES  ('" + type + "', 0, null);");
+            }else{
+                stmt.execute("INSERT INTO JA_Tier (art, inStall, stallID)" +
+                        "VALUES ('" + type + "', 1, '" + getBarnID(barn) + "');");
+            }
+        }catch (Exception e){
+            if(getDebugMsg) System.out.println("Tier nicht hinzugefügt");
+        }
+    }
+
+    private int getBarnID(Barn barn){
+        try {
+            ResultSet results = stmt.executeQuery("SELECT ID FROM JA_Stall WHERE x = " + barn.getY() / 50 + " AND y = " + barn.getX() / 50 + ");");
+            while (results.next()){
+                return results.getInt(1);
+            }
+        }catch(Exception e){
+
+        }
+        return 0;
+    }
+
     private void dropAll(){
         try{
             stmt.execute("DROP TABLE JA_Farmer;");
@@ -173,8 +201,9 @@ public class SQLHandler {
         try {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
             mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
-            mapBuilder.loadBarnsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall"));
+            mapBuilder.loadBarnsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall;"));
             ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
+            loadAnimals();
             while(results.next()) {
                 userInterface.addCash(results.getInt(2));
                 userInterface.addWood(results.getInt(3));
@@ -182,6 +211,18 @@ public class SQLHandler {
             }
         }catch(Exception e){
 
+        }
+    }
+
+    private void loadAnimals(){
+        try {
+            mapBuilder.loadAnimalsToPC(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 0;"));
+            ResultSet barns = stmt.executeQuery("SELECT ID, x, y FROM JA_Stall;");
+            while (barns.next()) {
+                mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
+            }
+        }catch (Exception e){
+            System.out.println("Tiere nicht geladen");
         }
     }
 

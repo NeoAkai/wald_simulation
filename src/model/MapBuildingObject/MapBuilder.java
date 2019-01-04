@@ -3,7 +3,7 @@ package model.MapBuildingObject;
 import mapObjects.*;
 import control.ProgramController;
 import control.framework.UIController;
-import model.GameObjects.Barn;
+import model.GameObjects.*;
 
 import java.io.*;
 import java.sql.ResultSet;
@@ -115,6 +115,69 @@ public class MapBuilder {
                 int y = results.getInt(4);
                 grass[x][y].setCoveringObject(new Barn(results.getString(2), 50*y, 50*x+50));
                 ui.drawObject(grass[x][y].getCoveringObject());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadAnimalsToBarn(ResultSet animals, int barnX, int barnY){
+        try {
+            Barn barn = getBarnFromCoordinates(barnX, barnY);
+            while (animals.next()) {
+                String type = animals.getString(1);
+                if(type.equals("eichhoernchen")){
+                    barn.addAnimal(new Eichhörnchen(400,400));
+                }else if(type.equals("wurm")){
+                    barn.addAnimal(new Worm(400,400));
+                }else if(type.equals("fuchs")){
+                    barn.addAnimal(new Fox(400,400));
+                }else if(type.equals("hase")){
+                    barn.addAnimal(new Rabbit(400,400));
+                }else if(type.equals("hirsch")){
+                    barn.addAnimal(new Hirsch(400,400));
+                }else if(type.equals("schnecke")){
+                    barn.addAnimal(new Schnecke(400,400));
+                }else if(type.equals("vogel")){
+                    barn.addAnimal(new Bird(400,400));
+                }else if(type.equals("wildschwein")){
+                    barn.addAnimal(new WildPig(400,400));
+                }else if(type.equals("ziege")){
+                    barn.addAnimal(new Goat(400,400));
+                }
+            }
+        }catch(Exception e){
+
+        }
+    }
+
+    private Barn getBarnFromCoordinates(int barnX, int barnY){
+        return (Barn)grass[barnX][barnY].getCoveringObject();
+    }
+
+    public void loadAnimalsToPC(ResultSet results){
+        try {
+            while (results.next()) {
+                String type = results.getString(1);
+                if(type.equals("eichhoernchen")){
+                    pc.addAnimalFromDatabase(2);
+                }else if(type.equals("wurm")){
+                    pc.addAnimalFromDatabase(1);
+                }else if(type.equals("fuchs")){
+                    pc.addAnimalFromDatabase(3);
+                }else if(type.equals("hase")){
+                    pc.addAnimalFromDatabase(4);
+                }else if(type.equals("hirsch")){
+                    pc.addAnimalFromDatabase(5);
+                }else if(type.equals("schnecke")){
+                    pc.addAnimalFromDatabase(6);
+                }else if(type.equals("vogel")){
+                    pc.addAnimalFromDatabase(7);
+                }else if(type.equals("wildschwein")){
+                    pc.addAnimalFromDatabase(8);
+                }else if(type.equals("ziege")){
+                    pc.addAnimalFromDatabase(9);
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
