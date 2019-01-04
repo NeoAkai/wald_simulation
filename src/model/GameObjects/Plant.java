@@ -36,4 +36,13 @@ public class Plant extends ProducingObject{
         }
     }
 
+    @Override
+    public void update(double dt) {
+        super.update(dt);
+        if(itemCooldown <= 0){
+            setMyImage(doneImage);
+        }else{
+            setMyImage(growingImage);
+        }
+    }
 }
