@@ -99,12 +99,14 @@ public class ProgramController {
 
     public void putAnimalIntoBarn(Animal a){
         int barnCounter = 0;
+        System.out.println("1");
         Barn[] alotBarns = new Barn[100];
         boolean done = false;
         for (int i = 0; i < grass.length; i++) {
             for (int e = 0; e < grass[0].length; e++) {
                 if(grass[i][e].getCoveringObject()instanceof Barn){
                     alotBarns[barnCounter] = (Barn)grass[i][e].getCoveringObject();
+                    barnCounter = barnCounter + 1;
                 }
             }
         }
@@ -115,12 +117,21 @@ public class ProgramController {
                     for(int k = 0; k < alotBarns[j].getAnimals().length&&!foundPlace;k++){
                         if(alotBarns[j].getAnimals()[k]==null){
                             foundPlace = true;
+                            done = true;
+
                         }
                     }
 
-                    if(foundPlace){
+                    if(foundPlace) {
+                        for (int i = 0; i < freeAnimals.length; i++) {
+                            if (freeAnimals[i] == a) {
+                                freeAnimals[i] = null;
+                            }
+                        }
                         uiController.removeObject(a);
                         alotBarns[j].addAnimal(a);
+                        setAnimalsKlickable(false);
+                        deactivateButton();
                     }
 
                 }
