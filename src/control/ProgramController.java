@@ -36,6 +36,7 @@ public class ProgramController {
     private XButton xButton;
     private shop shop;
     private MenuButton[] buttons;
+    private TitleScreen ts;
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -53,10 +54,12 @@ public class ProgramController {
 
 
     public void startProgram(){
-        startGame();
+        ts = new TitleScreen(0,0,this);
+        uiController.drawObject(ts);
     }
 
     public void startGame(){
+        uiController.removeObject(ts);
         userInterface = new UserInterface(0,0);
         uiController.drawObject(userInterface);
         grass = new Grass[13][28];
