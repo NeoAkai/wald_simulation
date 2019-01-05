@@ -116,6 +116,7 @@ public class ProgramController {
                     for(int k = 0; k < alotBarns[j].getAnimals().length&&!foundPlace;k++){
                         if(alotBarns[j].getAnimals()[k]==null){
                             foundPlace = true;
+                            done = true;
 
                         }
                     }
