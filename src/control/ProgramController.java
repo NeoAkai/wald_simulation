@@ -105,6 +105,7 @@ public class ProgramController {
             for (int e = 0; e < grass[0].length; e++) {
                 if(grass[i][e].getCoveringObject()instanceof Barn){
                     alotBarns[barnCounter] = (Barn)grass[i][e].getCoveringObject();
+                    barnCounter = barnCounter + 1;
                 }
             }
         }
@@ -115,12 +116,16 @@ public class ProgramController {
                     for(int k = 0; k < alotBarns[j].getAnimals().length&&!foundPlace;k++){
                         if(alotBarns[j].getAnimals()[k]==null){
                             foundPlace = true;
+
                         }
                     }
 
                     if(foundPlace){
+
                         uiController.removeObject(a);
                         alotBarns[j].addAnimal(a);
+                        setAnimalsKlickable(false);
+                        deactivateButton();
                     }
 
                 }
