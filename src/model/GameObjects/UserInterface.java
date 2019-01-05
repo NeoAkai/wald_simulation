@@ -6,7 +6,7 @@ import view.framework.DrawTool;
 public class UserInterface extends GraphicalObject  {
 
     //Atribute
-    private int wood;
+    private int wood = 500000;
     private int cash = 500000;
     private int harmony;
 

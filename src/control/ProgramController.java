@@ -36,6 +36,7 @@ public class ProgramController {
     private XButton xButton;
     private shop shop;
     private MenuButton[] buttons;
+    private TitleScreen ts;
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -53,10 +54,12 @@ public class ProgramController {
 
 
     public void startProgram(){
-        startGame();
+        ts = new TitleScreen(0,0,this);
+        uiController.drawObject(ts);
     }
 
     public void startGame(){
+        uiController.removeObject(ts);
         userInterface = new UserInterface(0,0);
         uiController.drawObject(userInterface);
         grass = new Grass[13][28];
@@ -66,7 +69,7 @@ public class ProgramController {
         mapBuilder = new MapBuilder(grass,tree,uiController,this);
         sqlHandler = new SQLHandler(mapBuilder, userInterface);
         sqlHandler.handleSQL();
-        cat = new Cat(200,500);
+        cat = new Cat(200,500,this, "katze");
         uiController.drawObject(cat);
         xButton = new XButton(1050,5,this);
         uiController.drawObject(xButton);
@@ -85,6 +88,46 @@ public class ProgramController {
         }
 
         ((ShopButton)buttons[2]).addBuyButtonsToDrawingPanel();
+
+    }
+
+    public void setAnimalsKlickable(boolean a){
+        for(int i = 0;i < freeAnimals.length; i++){
+            if(freeAnimals[i]!=null)freeAnimals[i].setKlickable(a);
+        }
+    }
+
+    public void putAnimalIntoBarn(Animal a){
+        int barnCounter = 0;
+        Barn[] alotBarns = new Barn[100];
+        boolean done = false;
+        for (int i = 0; i < grass.length; i++) {
+            for (int e = 0; e < grass[0].length; e++) {
+                if(grass[i][e].getCoveringObject()instanceof Barn){
+                    alotBarns[barnCounter] = (Barn)grass[i][e].getCoveringObject();
+                }
+            }
+        }
+        boolean foundPlace = false;
+        for(int j = 0;j<alotBarns.length&&!done;j++){
+            if(alotBarns[j]!=null){
+                if(alotBarns[j].getArt().equals(a.getArt())){
+                    for(int k = 0; k < alotBarns[j].getAnimals().length&&!foundPlace;k++){
+                        if(alotBarns[j].getAnimals()[k]==null){
+                            foundPlace = true;
+                        }
+                    }
+
+                    if(foundPlace){
+                        uiController.removeObject(a);
+                        alotBarns[j].addAnimal(a);
+                    }
+
+                }
+            }
+        }
+
+
 
     }
 
@@ -284,40 +327,40 @@ public class ProgramController {
                 userInterface.addCash(-price);
                 switch(index){
                     case 1:
-                        freeAnimals[i] = new Worm(500,300);
+                        freeAnimals[i] = new Worm(500,300,this,"wurm");
                         uiController.drawObject(freeAnimals[i]);
 
                         break;
                     case 2:
-                        freeAnimals[i] = new Eichhörnchen(500,300);
+                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 3:
-                        freeAnimals[i] = new Fox(500,300);
+                        freeAnimals[i] = new Fox(500,300,this,"fuchs");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 4:
-                        freeAnimals[i] = new Rabbit(500,300);
+                        freeAnimals[i] = new Rabbit(500,300,this,"hase");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 5:
-                        freeAnimals[i] = new Hirsch(500,300);
+                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 6:
-                        freeAnimals[i] = new Schnecke(500,300);
+                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 7:
-                        freeAnimals[i] = new Bird(500,300);
+                        freeAnimals[i] = new Bird(500,300,this,"vogel");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 8:
-                        freeAnimals[i] = new WildPig(500,300);
+                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 9:
-                        freeAnimals[i] = new Goat(500,300);
+                        freeAnimals[i] = new Goat(500,300,this,"ziege");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                 }
@@ -340,46 +383,46 @@ public class ProgramController {
                 finished = true;
                 switch(index){
                     case 1:
-                        freeAnimals[i] = new Worm(500,300);
+                        freeAnimals[i] = new Worm(500,300,this,"wurm");
                         uiController.drawObject(freeAnimals[i]);
+
                         break;
                     case 2:
-                        freeAnimals[i] = new Eichhörnchen(500,300);
+                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 3:
-                        freeAnimals[i] = new Fox(500,300);
+                        freeAnimals[i] = new Fox(500,300,this,"fuchs");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 4:
-                        freeAnimals[i] = new Rabbit(500,300);
+                        freeAnimals[i] = new Rabbit(500,300,this,"hase");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 5:
-                        freeAnimals[i] = new Hirsch(500,300);
+                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 6:
-                        freeAnimals[i] = new Schnecke(500,300);
+                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 7:
-                        freeAnimals[i] = new Bird(500,300);
+                        freeAnimals[i] = new Bird(500,300,this,"vogel");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 8:
-                        freeAnimals[i] = new WildPig(500,300);
+                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                     case 9:
-                        freeAnimals[i] = new Goat(500,300);
+                        freeAnimals[i] = new Goat(500,300,this,"ziege");
                         uiController.drawObject(freeAnimals[i]);
                         break;
                 }
             }
         }
     }
-
 
     /**
      * Diese Methode wird wiederholt automatisch aufgerufen und zwar für jede Frame einmal, d.h. über 25 mal pro Sekunde.

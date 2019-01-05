@@ -1,7 +1,10 @@
 package model.GameObjects;
 
+import control.ProgramController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
+
+import java.awt.event.MouseEvent;
 
 public class Animal extends GraphicalObject {
 
@@ -9,10 +12,16 @@ public class Animal extends GraphicalObject {
     private double moveCounter = (int)(Math.random()*12 + 3);
     private int direction = 0;
     private boolean moving = false, imageSet;
+    protected boolean klickable = false;
+    protected boolean klicked = false;
+    protected ProgramController pc;
+    protected String type;
 
-    public Animal(double x, double y){
+    public Animal(double x, double y, ProgramController pc, String type){
         this.x = x;
         this.y = y;
+        this.pc = pc;
+        this.type = type;
         imageSet = false;
     }
 
@@ -74,6 +83,25 @@ public class Animal extends GraphicalObject {
 
 
         }
+    }
+
+    public void setKlickable(boolean a){
+        klickable = a;
+    }
+
+    public void mouseReleased(MouseEvent e){
+        if(klickable){
+            if(!klicked){
+                if(e.getX()>x&&e.getX()<x+30&&e.getY()>y&&e.getY()<y+30){
+                    pc.putAnimalIntoBarn(this);
+                }
+            }
+            klicked = !klicked;
+        }
+    }
+
+    public String getArt(){
+        return type;
     }
 
 }

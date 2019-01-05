@@ -127,23 +127,23 @@ public class MapBuilder {
             while (animals.next()) {
                 String type = animals.getString(1);
                 if(type.equals("eichhoernchen")){
-                    barn.addAnimal(new Eichhörnchen(400,400));
+                    barn.addAnimal(new Eichhörnchen(400,400,pc,"eichhoernchen"));
                 }else if(type.equals("wurm")){
-                    barn.addAnimal(new Worm(400,400));
+                    barn.addAnimal(new Worm(400,400,pc,"wurm"));
                 }else if(type.equals("fuchs")){
-                    barn.addAnimal(new Fox(400,400));
+                    barn.addAnimal(new Fox(400,400,pc,"fuchs"));
                 }else if(type.equals("hase")){
-                    barn.addAnimal(new Rabbit(400,400));
+                    barn.addAnimal(new Rabbit(400,400,pc,"hase"));
                 }else if(type.equals("hirsch")){
-                    barn.addAnimal(new Hirsch(400,400));
+                    barn.addAnimal(new Hirsch(400,400,pc,"hirsch"));
                 }else if(type.equals("schnecke")){
-                    barn.addAnimal(new Schnecke(400,400));
+                    barn.addAnimal(new Schnecke(400,400,pc,"schnecke"));
                 }else if(type.equals("vogel")){
-                    barn.addAnimal(new Bird(400,400));
+                    barn.addAnimal(new Bird(400,400,pc,"vogel"));
                 }else if(type.equals("wildschwein")){
-                    barn.addAnimal(new WildPig(400,400));
+                    barn.addAnimal(new WildPig(400,400,pc,"wildschwein"));
                 }else if(type.equals("ziege")){
-                    barn.addAnimal(new Goat(400,400));
+                    barn.addAnimal(new Goat(400,400,pc,"ziege"));
                 }
             }
         }catch(Exception e){
