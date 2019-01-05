@@ -11,8 +11,8 @@ public class WildPig extends Animal  {
     //Referenzen
 
 
-    public WildPig(double x, double y, ProgramController pc,String t){
-        super(x,y,pc,t);
+    public WildPig(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y,pc,t,ID);
         pathToImageLeft = "assets/images/wildschwein_links.png";
         pathToImageRight = "assets/images/Animals/wildschwein.png";
     }

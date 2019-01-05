@@ -1,6 +1,5 @@
 package control;
 
-import mapObjects.Tree;
 import model.GameObjects.Barn;
 import model.GameObjects.UserInterface;
 import model.MapBuildingObject.MapBuilder;
@@ -52,6 +51,8 @@ public class SQLHandler {
                         "art varchar(255) NOT NULL," +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
+                        "isGrown BIT NOT NULL," +
+                        "growTimer int NOT NULL," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
@@ -60,7 +61,6 @@ public class SQLHandler {
                         "typ varchar(255) NOT NULL," +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
-                        //"isGrown BIT  ," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
@@ -71,6 +71,16 @@ public class SQLHandler {
                         "stallID int," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (stallID) REFERENCES JA_Stall(ID)" +
+                        ");");
+                stmt.execute("CREATE TABLE JA_Pflanze (" +
+                        "ID int NOT NULL AUTO_INCREMENT," +
+                        "typ varchar(255) NOT NULL," +
+                        "x int NOT NULL," +
+                        "y int NOT NULL," +
+                        "isGrown BIT NOT NULL," +
+                        "growTimer int NOT NULL," +
+                        "PRIMARY KEY (ID)," +
+                        "FOREIGN KEY (x,y) REFERENCES JA_Grass(x,y)" +
                         ");");
                 mapBuilder.loadFromTxt();
             }catch (Exception e){
@@ -110,12 +120,14 @@ public class SQLHandler {
         }
     }
 
-    public void addTree(int x, int y, String art){
-        if(art == "T") art = "Eiche";
-        else if(art == "B") art = "Birke";
+    public void addTree(int x, int y, String art, boolean isGrown, int growTimer){
+        int i = 0;
+        if(isGrown) i = 1;
         try {
-            stmt.execute("INSERT INTO JA_Baum (x, y, art)" +
-                    "VALUES ('" + x + "', '" + y + "', '" + art + "');");
+            String s = "INSERT INTO JA_Baum (art, x, y, isGrown, growTimer)" +
+                    "VALUES ('" + art + "', " + x + ", " + y + ", " + i + ", " + growTimer + ");";
+            System.out.println(s);
+            stmt.execute(s);
         }catch(Exception e){
             if(getDebugMsg) System.out.println("Baum nicht hinzugefügt");
         }
@@ -157,6 +169,17 @@ public class SQLHandler {
         }
     }
 
+    public void addPlant(String type, int x, int y){
+        try{
+            String s = "INSERT INTO JA_Pflanze (typ, x, y, isGrown, growTimer)" +
+                    "VALUES('" + type + "'," + x +"," + y + ", 0, 25 );";
+            System.out.println(s);
+            stmt.execute(s);
+        }catch(Exception e){
+            if(getDebugMsg) System.out.println("Pflanze nicht hinzugefügt");
+        }
+    }
+
     private int getBarnID(Barn barn){
         try {
             ResultSet results = stmt.executeQuery("SELECT ID FROM JA_Stall WHERE x = " + barn.getY() / 50 + " AND y = " + barn.getX() / 50 + ");");
@@ -167,6 +190,17 @@ public class SQLHandler {
 
         }
         return 0;
+    }
+
+    public void updateAnimalBarn(int animalID, Barn barn){
+        try{
+            stmt.execute("UPDATE JA_Tier " +
+                    "SET stallID = " + getBarnID(barn) + " " +
+                    "WHERE ID = " + animalID + ";"
+                    );
+        }catch(Exception e){
+
+        }
     }
 
     private void dropAll(){
@@ -191,6 +225,11 @@ public class SQLHandler {
             if(getDebugMsg) System.out.println("Tabelle Tier nicht gelöscht");
         }
         try{
+            stmt.execute("DROP TABLE JA_Pflanze;");
+        }catch (Exception e) {
+            if(getDebugMsg) System.out.println("Tabelle Pflanze nicht gelöscht");
+        }
+        try{
             stmt.execute("DROP TABLE JA_Grass;");
         }catch (Exception e) {
             if(getDebugMsg) System.out.println("Tabelle Grass nicht gelöscht");
@@ -202,7 +241,8 @@ public class SQLHandler {
         try {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
             mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
-            mapBuilder.loadBarnsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall;"));
+            mapBuilder.loadProducingObjectsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall;"),0);
+            mapBuilder.loadProducingObjectsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Pflanze;"),1);
             loadAnimals();
             ResultSet results = stmt.executeQuery("SELECT * FROM JA_Farmer;");
             while(results.next()) {
@@ -220,7 +260,7 @@ public class SQLHandler {
             mapBuilder.loadAnimalsToPC(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 0;"));
             ResultSet barns = stmt.executeQuery("SELECT ID, x, y FROM JA_Stall;");
             while (barns.next()) {
-                mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
+                mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
             }
         }catch (Exception e){
             System.out.println("Tiere nicht geladen");

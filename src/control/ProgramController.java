@@ -37,6 +37,7 @@ public class ProgramController {
     private shop shop;
     private MenuButton[] buttons;
     private TitleScreen ts;
+    private int animalCount;
     /**
      * Konstruktor
      * Dieser legt das Objekt der Klasse ProgramController an, das den Programmfluss steuert.
@@ -69,7 +70,7 @@ public class ProgramController {
         mapBuilder = new MapBuilder(grass,tree,uiController,this);
         sqlHandler = new SQLHandler(mapBuilder, userInterface);
         sqlHandler.handleSQL();
-        cat = new Cat(200,500,this, "katze");
+        cat = new Cat(200,500,this, "katze",-1);
         uiController.drawObject(cat);
         xButton = new XButton(1050,5,this);
         uiController.drawObject(xButton);
@@ -132,6 +133,7 @@ public class ProgramController {
                         alotBarns[j].addAnimal(a);
                         setAnimalsKlickable(false);
                         deactivateButton();
+                        sqlHandler.updateAnimalBarn(a.getDatabaseID(), alotBarns[j]);
                     }
 
                 }
@@ -183,48 +185,39 @@ public class ProgramController {
 
         switch(index) {
             case 1:
-            /*for(int i = 0; i < tree.length; i++){
-                for(int e = 0; e < tree[0].length; e++){
-                    tree[i][e] = new Tree(g.getx(),g.gety(),"T",this,5);
-                    g.plant(tree[i][e]);
-                    uiController.drawObject(tree[i][e]);
-                    System.out.println(i + " " + e);
+                if(g.plant(new Tree(g.getx(),g.gety(),"T",this,50))) {
+                    uiController.drawObject(g.getCoveringObject());
+                    sqlHandler.addTree(g.gety()/50,g.getx()/50,"T",false,50);
+                    redrawShop();
                 }
-            }*/
-                g.plant(new Tree(g.getx(),g.gety(),"T",this,50));
-                uiController.drawObject(g.getCoveringObject());
-
-                redrawShop();
                 break;
             case 2:
-                /*for(int i = 0; i < tree.length; i++){
-                    for(int e = 0; e < tree[0].length; e++){
-                        tree[i][e] = new Tree(g.getx(),g.gety(),"B",this,5);
-                        g.plant(tree[i][e]);
-                        uiController.drawObject(tree[i][e]);
-                    }
-                }*/
-                g.plant(new Tree(g.getx(),g.gety(),"B",this,50));
-                uiController.drawObject(g.getCoveringObject());
-                redrawShop();
+                if(g.plant(new Tree(g.getx(),g.gety(),"B",this,50))) {
+                    uiController.drawObject(g.getCoveringObject());
+                    sqlHandler.addTree(g.gety()/50,g.getx()/50,"B",false,50);
+                    redrawShop();
+                }
                 break;
             case 3:
-                g.plant(new Plant("wheat",g.getx(),g.gety(),this));
-                uiController.drawObject(g.getCoveringObject());
-                redrawShop();
-
+                if(g.plant(new Plant("wheat",g.getx(),g.gety(),this))) {
+                    uiController.drawObject(g.getCoveringObject());
+                    sqlHandler.addPlant("wheat",g.gety()/50,g.getx()/50);
+                    redrawShop();
+                }
                 break;
             case 4:
-                g.plant(new Plant("carrot",g.getx(),g.gety(),this));
-                uiController.drawObject(g.getCoveringObject());
-                redrawShop();
-
+                if(g.plant(new Plant("carrot",g.getx(),g.gety(),this))) {
+                    uiController.drawObject(g.getCoveringObject());
+                    sqlHandler.addPlant("carrot",g.gety()/50,g.getx()/50);
+                    redrawShop();
+                }
                 break;
             case 5:
-                g.plant(new Plant("cherry",g.getx(),g.gety(),this));
-                uiController.drawObject(g.getCoveringObject());
-                redrawShop();
-
+                if(g.plant(new Plant("cherry",g.getx(),g.gety(),this))) {
+                    uiController.drawObject(g.getCoveringObject());
+                    sqlHandler.addPlant("cherry",g.gety()/50,g.getx()/50);
+                    redrawShop();
+                }
                 break;
             case 6:
 
@@ -335,48 +328,59 @@ public class ProgramController {
         for(int i = 0; i < freeAnimals.length&&!finished; i++){
             if(freeAnimals[i]==null){
                 finished = true;
-                userInterface.addCash(-price);
                 switch(index){
                     case 1:
-                        freeAnimals[i] = new Worm(500,300,this,"wurm");
+                        freeAnimals[i] = new Worm(500,300,this,"wurm",animalCount);
                         uiController.drawObject(freeAnimals[i]);
-
+                        sqlHandler.addAnimal("wurm",null);
                         break;
                     case 2:
-                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen");
+                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("eichhoernchen",null);
                         break;
                     case 3:
-                        freeAnimals[i] = new Fox(500,300,this,"fuchs");
+                        freeAnimals[i] = new Fox(500,300,this,"fuchs",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("fuchs",null);
                         break;
                     case 4:
-                        freeAnimals[i] = new Rabbit(500,300,this,"hase");
+                        freeAnimals[i] = new Rabbit(500,300,this,"hase",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("hase",null);
                         break;
                     case 5:
-                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch");
+                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("hirsch",null);
                         break;
                     case 6:
-                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke");
+                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("schnecke",null);
                         break;
                     case 7:
-                        freeAnimals[i] = new Bird(500,300,this,"vogel");
+                        freeAnimals[i] = new Bird(500,300,this,"vogel",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("vogel",null);
                         break;
                     case 8:
-                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein");
+                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("wildschwein",null);
                         break;
                     case 9:
-                        freeAnimals[i] = new Goat(500,300,this,"ziege");
+                        freeAnimals[i] = new Goat(500,300,this,"ziege",animalCount);
                         uiController.drawObject(freeAnimals[i]);
+                        sqlHandler.addAnimal("ziege",null);
                         break;
                 }
-                redrawShop();
-                sqlHandler.updateCash();
+                animalCount++;
+                if(price != 0) {
+                    redrawShop();
+                    sqlHandler.updateCash();
+                    userInterface.addCash(-price);
+                }
             }
         }
     }
@@ -385,54 +389,6 @@ public class ProgramController {
         uiController.removeObject(buttons[2]);
         uiController.drawObject(buttons[2]);
         ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
-    }
-
-    public void addAnimalFromDatabase(int index){
-        boolean finished = false;
-        for(int i = 0; i < freeAnimals.length&&!finished; i++) {
-            if (freeAnimals[i] == null) {
-                finished = true;
-                switch(index){
-                    case 1:
-                        freeAnimals[i] = new Worm(500,300,this,"wurm");
-                        uiController.drawObject(freeAnimals[i]);
-
-                        break;
-                    case 2:
-                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 3:
-                        freeAnimals[i] = new Fox(500,300,this,"fuchs");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 4:
-                        freeAnimals[i] = new Rabbit(500,300,this,"hase");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 5:
-                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 6:
-                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 7:
-                        freeAnimals[i] = new Bird(500,300,this,"vogel");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 8:
-                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                    case 9:
-                        freeAnimals[i] = new Goat(500,300,this,"ziege");
-                        uiController.drawObject(freeAnimals[i]);
-                        break;
-                }
-            }
-        }
     }
 
     /**
@@ -453,7 +409,7 @@ public class ProgramController {
                     System.out.println(t);
                     grass[i][j].setCoveringObject(null);
                     uiController.removeObject(t);
-                    //sqlHandler.removeTreeFromDatabase(i,j);
+                    sqlHandler.removeTreeFromDatabase(i,j);
                 }
             }
         }
@@ -483,5 +439,13 @@ public class ProgramController {
 
     public UIController getUiController() {
         return uiController;
+    }
+
+    public int getAnimalCount() {
+        return animalCount;
+    }
+
+    public void setAnimalCount(int animalCount) {
+        this.animalCount = animalCount;
     }
 }

@@ -12,7 +12,7 @@ public class ProducingObject extends CoveringObject {
         if(itemCooldown > 0 && maxItemCooldown != 61){
             itemCooldown -= dt;
         }else{
-            itemCooldown = maxItemCooldown;
+            //itemCooldown = maxItemCooldown;
         }
         progressBarPercentage = itemCooldown / maxItemCooldown;
         progressBarWidth = -0.5 * progressBarPercentage * 100 + 50;

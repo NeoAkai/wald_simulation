@@ -11,8 +11,8 @@ public class Hirsch extends Animal  {
     //Referenzen
 
 
-    public Hirsch(double x, double y, ProgramController pc,String t){
-        super(x,y, pc,t);
+    public Hirsch(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y, pc,t,ID);
         pathToImageLeft = "assets/images/hirsch_links.png";
         pathToImageRight = "assets/images/Animals/hirsch.png";
     }

@@ -11,8 +11,8 @@ public class Goat extends Animal  {
     //Referenzen
 
 
-    public Goat(double x, double y, ProgramController pc,String t){
-        super(x,y, pc,t);
+    public Goat(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y, pc,t,ID);
         pathToImageLeft = "assets/images/ziege_links.png";
         pathToImageRight = "assets/images/Animals/ziege.png";
     }

@@ -11,8 +11,8 @@ public class Eichhörnchen extends Animal  {
     //Referenzen
 
 
-    public Eichhörnchen(double x, double y, ProgramController pc,String t){
-        super(x,y,pc,t);
+    public Eichhörnchen(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y,pc,t,ID);
         pathToImageLeft = "assets/images/eichhörnchen_links.png";
         pathToImageRight = "assets/images/Animals/eichhörnchen.png";
     }

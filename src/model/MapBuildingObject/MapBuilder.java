@@ -68,7 +68,7 @@ public class MapBuilder {
                             grass[i][a].plant(new Tree(tempX, tempY, currentLetter, pc,-1));
                             ui.drawObject(grass[i][a].getCoveringObject());
                             pc.getSqlHandler().addGrass(i,a,true);
-                            pc.getSqlHandler().addTree(i,a,currentLetter);
+                            pc.getSqlHandler().addTree(i,a,currentLetter,true,0);
                         }
                         tempX = tempX + 50;
                     }
@@ -100,7 +100,11 @@ public class MapBuilder {
             while (results.next()){
                 int x = results.getInt(3);
                 int y = results.getInt(4);
-                grass[x][y].setCoveringObject(new Tree(50*y, 50*x+50, results.getString(2), pc, -1));
+                if(results.getInt(5) == 1) {
+                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(2), pc, -1));
+                }else{
+                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(2), pc, results.getDouble(6)));
+                }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
         }catch (Exception e){
@@ -108,12 +112,16 @@ public class MapBuilder {
         }
     }
 
-    public void loadBarnsFromDatabase(ResultSet results){
+    public void loadProducingObjectsFromDatabase(ResultSet results, int i){
         try{
             while (results.next()){
                 int x = results.getInt(3);
                 int y = results.getInt(4);
-                grass[x][y].setCoveringObject(new Barn(results.getString(2), 50*y, 50*x+50));
+                if(i == 0) {
+                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50));
+                }else if(i == 1){
+                    grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc));
+                }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
         }catch (Exception e){
@@ -125,26 +133,28 @@ public class MapBuilder {
         try {
             Barn barn = getBarnFromCoordinates(barnX, barnY);
             while (animals.next()) {
-                String type = animals.getString(1);
+                int ID = animals.getInt(1);
+                String type = animals.getString(2);
                 if(type.equals("eichhoernchen")){
-                    barn.addAnimal(new Eichhörnchen(400,400,pc,"eichhoernchen"));
+                    barn.addAnimal(new Eichhörnchen(400,400,pc,"eichhoernchen",ID));
                 }else if(type.equals("wurm")){
-                    barn.addAnimal(new Worm(400,400,pc,"wurm"));
+                    barn.addAnimal(new Worm(400,400,pc,"wurm",ID));
                 }else if(type.equals("fuchs")){
-                    barn.addAnimal(new Fox(400,400,pc,"fuchs"));
+                    barn.addAnimal(new Fox(400,400,pc,"fuchs",ID));
                 }else if(type.equals("hase")){
-                    barn.addAnimal(new Rabbit(400,400,pc,"hase"));
+                    barn.addAnimal(new Rabbit(400,400,pc,"hase",ID));
                 }else if(type.equals("hirsch")){
-                    barn.addAnimal(new Hirsch(400,400,pc,"hirsch"));
+                    barn.addAnimal(new Hirsch(400,400,pc,"hirsch",ID));
                 }else if(type.equals("schnecke")){
-                    barn.addAnimal(new Schnecke(400,400,pc,"schnecke"));
+                    barn.addAnimal(new Schnecke(400,400,pc,"schnecke",ID));
                 }else if(type.equals("vogel")){
-                    barn.addAnimal(new Bird(400,400,pc,"vogel"));
+                    barn.addAnimal(new Bird(400,400,pc,"vogel",ID));
                 }else if(type.equals("wildschwein")){
-                    barn.addAnimal(new WildPig(400,400,pc,"wildschwein"));
+                    barn.addAnimal(new WildPig(400,400,pc,"wildschwein",ID));
                 }else if(type.equals("ziege")){
-                    barn.addAnimal(new Goat(400,400,pc,"ziege"));
+                    barn.addAnimal(new Goat(400,400,pc,"ziege",ID));
                 }
+                pc.setAnimalCount(pc.getAnimalCount()+1);
             }
         }catch(Exception e){
 
@@ -160,23 +170,23 @@ public class MapBuilder {
             while (results.next()) {
                 String type = results.getString(1);
                 if(type.equals("eichhoernchen")){
-                    pc.addAnimalFromDatabase(2);
+                    pc.addAnimal(2,0);
                 }else if(type.equals("wurm")){
-                    pc.addAnimalFromDatabase(1);
+                    pc.addAnimal(1,0);
                 }else if(type.equals("fuchs")){
-                    pc.addAnimalFromDatabase(3);
+                    pc.addAnimal(3,0);
                 }else if(type.equals("hase")){
-                    pc.addAnimalFromDatabase(4);
+                    pc.addAnimal(4,0);
                 }else if(type.equals("hirsch")){
-                    pc.addAnimalFromDatabase(5);
+                    pc.addAnimal(5,0);
                 }else if(type.equals("schnecke")){
-                    pc.addAnimalFromDatabase(6);
+                    pc.addAnimal(6,0);
                 }else if(type.equals("vogel")){
-                    pc.addAnimalFromDatabase(7);
+                    pc.addAnimal(7,0);
                 }else if(type.equals("wildschwein")){
-                    pc.addAnimalFromDatabase(8);
+                    pc.addAnimal(8,0);
                 }else if(type.equals("ziege")){
-                    pc.addAnimalFromDatabase(9);
+                    pc.addAnimal(9,0);
                 }
             }
         }catch (Exception e){

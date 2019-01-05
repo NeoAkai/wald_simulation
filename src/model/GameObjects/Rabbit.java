@@ -11,8 +11,8 @@ public class Rabbit extends Animal  {
     //Referenzen
 
 
-    public Rabbit(double x, double y, ProgramController pc,String t){
-        super(x,y,pc,t);
+    public Rabbit(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y,pc,t,ID);
         pathToImageLeft = "assets/images/hase_links.png";
         pathToImageRight = "assets/images/Animals/hase.png";
     }

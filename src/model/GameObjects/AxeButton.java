@@ -33,8 +33,7 @@ public class AxeButton extends MenuButton {
                         if (grasses[i][f].getCoveringObject() != null) {
                             if(grasses[i][f].getCoveringObject().getHitbox() != null) {
                                 if (grasses[i][f].getCoveringObject().getHitbox().contains(e.getPoint())) {
-                                    if (!((Tree) grasses[i][f].getCoveringObject()).isParasiten())
-                                        pc.addWood((int) (Math.random() * 12 + 8));
+                                    if (!((Tree) grasses[i][f].getCoveringObject()).isYoung()) pc.addWood((int) (Math.random() * 12 + 8));
                                     pc.removeTree((Tree) grasses[i][f].getCoveringObject());
                                 }
                             }

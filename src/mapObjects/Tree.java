@@ -129,5 +129,9 @@ public class Tree extends CoveringObject  {
         art = newArt;
         living = true;
     }
+
+    public boolean isYoung() {
+        return young;
+    }
 }
 

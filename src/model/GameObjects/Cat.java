@@ -11,8 +11,8 @@ public class Cat extends Animal  {
     //Referenzen
 
 
-    public Cat(double x, double y, ProgramController pc,String t){
-        super(x,y,pc,t);
+    public Cat(double x, double y, ProgramController pc,String t, int ID){
+        super(x,y,pc,t,ID);
         pathToImageLeft = "assets/images/Animals/cat_black_left.png";
         pathToImageRight = "assets/images/Animals/cat_black_right.png";
     }

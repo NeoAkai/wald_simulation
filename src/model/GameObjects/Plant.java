@@ -23,6 +23,7 @@ public class Plant extends ProducingObject{
         this.type = type;
         this.pc = pc;
         itemCooldown = 25;
+        maxItemCooldown = 25;
         setImage();
     }
 

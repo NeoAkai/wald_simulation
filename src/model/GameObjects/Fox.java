@@ -11,8 +11,8 @@ public class Fox extends Animal  {
     //Referenzen
 
 
-    public Fox(double x, double y, ProgramController pc, String t){
-        super(x,y,pc,t);
+    public Fox(double x, double y, ProgramController pc, String t, int ID){
+        super(x,y,pc,t,ID);
         pathToImageLeft = "assets/images/fuchs_links.png";
         pathToImageRight = "assets/images/Animals/fuchs.png";
     }

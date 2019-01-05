@@ -16,13 +16,15 @@ public class Animal extends GraphicalObject {
     protected boolean klicked = false;
     protected ProgramController pc;
     protected String type;
+    private int databaseID;
 
-    public Animal(double x, double y, ProgramController pc, String type){
+    public Animal(double x, double y, ProgramController pc, String type, int ID){
         this.x = x;
         this.y = y;
         this.pc = pc;
         this.type = type;
         imageSet = false;
+        this.databaseID = ID;
     }
 
 
@@ -104,4 +106,11 @@ public class Animal extends GraphicalObject {
         return type;
     }
 
+    public int getDatabaseID() {
+        return databaseID;
+    }
+
+    public void setDatabaseID(int databaseID) {
+        this.databaseID = databaseID;
+    }
 }
