@@ -24,7 +24,9 @@ public class ProducingObject extends CoveringObject {
         drawTool.drawImage(getMyImage(),x,y);
         drawTool.setCurrentColor(200,200,200,255);
         drawTool.drawFilledRectangle(x,y+50,50,3);
-        drawTool.setCurrentColor((int)progressBarColorR,255,0,255);
+//        drawTool.setCurrentColor((int)progressBarColorR,255,0,255);
         drawTool.drawFilledRectangle(x,y+50,progressBarWidth,3);
     }
+
+
 }

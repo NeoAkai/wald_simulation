@@ -1,8 +1,10 @@
 package model.GameObjects;
 
 import control.Config;
+import control.ProgramController;
 
 import javax.imageio.ImageIO;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,11 +13,16 @@ public class Plant extends ProducingObject{
 
     private String type;
     private BufferedImage growingImage, doneImage;
+    private boolean grown = false;
+    private ProgramController pc;
+    private boolean klicked = false;
 
-    public Plant(String type, int x, int y){
+    public Plant(String type, int x, int y, ProgramController pc){
         this.x = x;
         this.y = y;
         this.type = type;
+        this.pc = pc;
+        itemCooldown = 25;
         setImage();
     }
 
@@ -45,4 +52,23 @@ public class Plant extends ProducingObject{
             setMyImage(growingImage);
         }
     }
+
+    public void mouseReleased(MouseEvent e){
+        if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50&&itemCooldown<=0){
+            if(klicked) {
+
+                pc.removePlant(this);
+            }
+            klicked = !klicked;
+        }
+    }
+
+    public int getx(){
+        return (int)x;
+    }
+
+    public int gety(){
+        return (int)y;
+    }
+
 }
