@@ -14,7 +14,7 @@ public class PickUpButton extends MenuButton{
 
     @Override
     protected void doButtonFunction(MouseEvent e) {
-
+        pc.setAnimalsKlickable(true);
     }
 
     @Override

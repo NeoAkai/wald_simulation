@@ -1,5 +1,6 @@
 package model.GameObjects;
 
+import control.ProgramController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -10,8 +11,8 @@ public class Bird extends Animal  {
     //Referenzen
 
 
-    public Bird(double x, double y){
-        super(x,y);
+    public Bird(double x, double y, ProgramController pc, String t){
+        super(x,y,pc,t);
         pathToImageLeft = "assets/images/vogel_links.png";
         pathToImageRight = "assets/images/Animals/vogel.png";
     }

@@ -101,4 +101,17 @@ public class Barn extends ProducingObject {
         }
         return b;
     }
+    public boolean checkAnimal(String a){
+        if(type.equals(a)){
+            return true;
+        }
+        return false;
+    }
+    public String getArt(){
+        return type;
+    }
+
+    public Animal[] getAnimals() {
+        return animals;
+    }
 }
