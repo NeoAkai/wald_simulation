@@ -88,6 +88,21 @@ public class ProgramController {
 
     }
 
+
+    public void removePlant(Plant plant){
+        uiController.removeObject(plant);
+        for (int i = 0; i < grass.length; i++) {
+            for (int e = 0; e < grass[0].length; e++) {
+               if(grass[i][e].getx()==plant.getx()&&grass[i][e].gety()==plant.gety()){
+                   grass[i][e].setCoveringObject(null);
+               }
+            }
+        }
+    }
+
+
+
+
     public void build(int index, int price, int woodprice, boolean tree){
     addCash(-price);
     addWood(-woodprice);
@@ -124,6 +139,8 @@ public class ProgramController {
             }*/
                 g.plant(new Tree(g.getx(),g.gety(),"T",this,50));
                 uiController.drawObject(g.getCoveringObject());
+
+                redrawShop();
                 break;
             case 2:
                 /*for(int i = 0; i < tree.length; i++){
@@ -135,20 +152,24 @@ public class ProgramController {
                 }*/
                 g.plant(new Tree(g.getx(),g.gety(),"B",this,50));
                 uiController.drawObject(g.getCoveringObject());
+                redrawShop();
                 break;
             case 3:
-                g.plant(new Plant("wheat",g.getx(),g.gety()));
+                g.plant(new Plant("wheat",g.getx(),g.gety(),this));
                 uiController.drawObject(g.getCoveringObject());
+                redrawShop();
 
                 break;
             case 4:
-                g.plant(new Plant("carrot",g.getx(),g.gety()));
+                g.plant(new Plant("carrot",g.getx(),g.gety(),this));
                 uiController.drawObject(g.getCoveringObject());
+                redrawShop();
 
                 break;
             case 5:
-                g.plant(new Plant("cherry",g.getx(),g.gety()));
+                g.plant(new Plant("cherry",g.getx(),g.gety(),this));
                 uiController.drawObject(g.getCoveringObject());
+                redrawShop();
 
                 break;
             case 6:
