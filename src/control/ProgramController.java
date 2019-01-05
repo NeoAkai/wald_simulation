@@ -99,6 +99,7 @@ public class ProgramController {
 
     public void putAnimalIntoBarn(Animal a){
         int barnCounter = 0;
+        System.out.println("1");
         Barn[] alotBarns = new Barn[100];
         boolean done = false;
         for (int i = 0; i < grass.length; i++) {
@@ -121,8 +122,12 @@ public class ProgramController {
                         }
                     }
 
-                    if(foundPlace){
-
+                    if(foundPlace) {
+                        for (int i = 0; i < freeAnimals.length; i++) {
+                            if (freeAnimals[i] == a) {
+                                freeAnimals[i] = null;
+                            }
+                        }
                         uiController.removeObject(a);
                         alotBarns[j].addAnimal(a);
                         setAnimalsKlickable(false);
