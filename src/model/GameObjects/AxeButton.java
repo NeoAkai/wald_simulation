@@ -26,7 +26,6 @@ public class AxeButton extends MenuButton {
 
     @Override
     protected void doButtonFunction(MouseEvent e) {
-
             for (int i = 0; i < grasses.length; i++) {
                 for (int f = 0; f < grasses[0].length; f++) {
                     if(grasses[i][f] != null) {

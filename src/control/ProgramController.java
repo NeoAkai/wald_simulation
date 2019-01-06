@@ -135,7 +135,6 @@ public class ProgramController {
 
                         }
                     }
-
                     if(foundPlace) {
                         for (int i = 0; i < freeAnimals.length; i++) {
                             if (freeAnimals[i] == a) {
@@ -148,13 +147,9 @@ public class ProgramController {
                         deactivateButton();
                         sqlHandler.updateAnimalBarn(a.getDatabaseID(), alotBarns[j]);
                     }
-
                 }
             }
         }
-
-
-
     }
 
 
@@ -164,6 +159,7 @@ public class ProgramController {
             for (int e = 0; e < grass[0].length; e++) {
                if(grass[i][e].getx()==plant.getx()&&grass[i][e].gety()==plant.gety()){
                    grass[i][e].setCoveringObject(null);
+                   sqlHandler.removePlantFromDatabase(i+1,e);
                }
             }
         }

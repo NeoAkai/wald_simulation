@@ -134,7 +134,6 @@ public class SQLHandler {
         try {
             String s = "INSERT INTO JA_Baum (art, x, y, isGrown, growTimer)" +
                        "VALUES ('" + art + "', " + x + ", " + y + ", " + i + ", " + growTimer + ");";
-            System.out.println(s);
             stmt.execute(s);
         }catch(Exception e){
             if(getDebugMsg) System.out.println("Baum nicht hinzugefügt");
@@ -222,7 +221,6 @@ public class SQLHandler {
             String s = "UPDATE JA_Tier " +
                        "SET stallID = " + getBarnID(barn) + ", inStall = 1 " +
                        "WHERE ID = " + animalID + ";";
-            //System.out.println(s);
             stmt.execute(s);
         }catch(Exception e){
             e.printStackTrace();
@@ -276,7 +274,8 @@ public class SQLHandler {
     private void loadDatabase(){
         try {
             mapBuilder.loadGrassFromDatabase(stmt.executeQuery("SELECT * FROM JA_Grass;"));
-            mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT * FROM JA_Baum;"));
+            mapBuilder.loadTreesFromDatabase(stmt.executeQuery("SELECT art,x,y,isGrown,growTimer " +
+                                                               "FROM JA_Baum;"));
             mapBuilder.loadProducingObjectsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Stall;"),0);
             mapBuilder.loadProducingObjectsFromDatabase(stmt.executeQuery("SELECT * FROM JA_Pflanze;"),1);
             loadAnimals();
@@ -299,7 +298,7 @@ public class SQLHandler {
             ResultSet s = stmt.executeQuery("SELECT ID, art " +
                                             "FROM JA_Tier " +
                                             "WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";");
-                mapBuilder.loadAnimalsToBarn(s, barns.getInt(2), barns.getInt(3));
+            mapBuilder.loadAnimalsToBarn(s, barns.getInt(2), barns.getInt(3));
             }*/
             List<int[]> barnDataList = new List();
             while(barns.next()){
@@ -328,6 +327,16 @@ public class SQLHandler {
                          "FROM JA_Baum " +
                          "WHERE x = " + x + " AND y = " + y + ";");
         }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void removePlantFromDatabase(int x, int y){
+        try{
+            stmt.execute("DELETE " +
+                    "FROM JA_Pflanze " +
+                    "WHERE x = " + x + " AND y = " + y + ";");
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

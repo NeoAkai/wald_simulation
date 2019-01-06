@@ -101,12 +101,12 @@ public class MapBuilder {
     public void loadTreesFromDatabase(ResultSet results){
         try{
             while (results.next()){
-                int x = results.getInt(3);
-                int y = results.getInt(4);
-                if(results.getInt(5) == 1) {
-                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(2), pc, -1));
+                int x = results.getInt(2);
+                int y = results.getInt(3);
+                if(results.getInt(4) == 1) {
+                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(1), pc, -1));
                 }else{
-                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * (x-1) + 50, results.getString(2), pc, results.getDouble(6)));
+                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * (x-1) + 50, results.getString(1), pc, results.getDouble(5)));
                 }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
