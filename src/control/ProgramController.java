@@ -334,6 +334,7 @@ public class ProgramController {
         for(int i = 0; i < freeAnimals.length&&!finished; i++){
             if(freeAnimals[i]==null){
                 finished = true;
+                animalCount++;
                 switch(index){
                     case 1:
                         freeAnimals[i] = new Worm(500,300,this,"wurm",animalCount);
@@ -381,7 +382,6 @@ public class ProgramController {
                         sqlHandler.addAnimal("ziege",null);
                         break;
                 }
-                animalCount++;
                 if(price != 0) {
                     redrawShop();
                     sqlHandler.updateCash();

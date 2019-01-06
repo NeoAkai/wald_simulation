@@ -3,6 +3,7 @@ package control;
 import model.GameObjects.Barn;
 import model.GameObjects.UserInterface;
 import model.MapBuildingObject.MapBuilder;
+import model.abitur.datenstrukturen.List;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,6 +37,9 @@ public class SQLHandler {
                         "geld int," +
                         "holz int," +
                         "harmonie int," +
+                        //"heu int," +
+                        //"karotten int," +
+                        //"kirschen int," +
                         "PRIMARY KEY(ID)" +
                         ")");
                 stmt.execute("INSERT INTO  JA_Farmer (geld, holz, harmonie)" +
@@ -196,7 +200,7 @@ public class SQLHandler {
     public void updateAnimalBarn(int animalID, Barn barn){
         try{
             String s = "UPDATE JA_Tier " +
-                    "SET stallID = " + getBarnID(barn) + " " +
+                    "SET stallID = " + getBarnID(barn) + ", inStall = 1 " +
                     "WHERE ID = " + animalID + ";";
             System.out.println(s);
             stmt.execute(s);
@@ -262,11 +266,25 @@ public class SQLHandler {
         try {
             mapBuilder.loadAnimalsToPC(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 0;"));
             ResultSet barns = stmt.executeQuery("SELECT ID, x, y FROM JA_Stall;");
-            while (barns.next()) {
-                mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
+            //while (barns.next()) {
+              //  mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
+            //}
+            List<int[]> barnDataList = new List();
+            while(barns.next()){
+                barnDataList.append(new int[3]);
+                barnDataList.toLast();
+                barnDataList.getContent()[0] = barns.getInt(1);
+                barnDataList.getContent()[1] = barns.getInt(2);
+                barnDataList.getContent()[2] = barns.getInt(3);
+            }
+            barnDataList.toFirst();
+            while (barnDataList.hasAccess()){
+                ResultSet s = stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barnDataList.getContent()[0] + ";");
+                mapBuilder.loadAnimalsToBarn(s,barnDataList.getContent()[1], barnDataList.getContent()[2]);
+                barnDataList.next();
             }
         }catch (Exception e){
-            System.out.println("Tiere nicht geladen");
+            e.printStackTrace();
         }
     }
 
