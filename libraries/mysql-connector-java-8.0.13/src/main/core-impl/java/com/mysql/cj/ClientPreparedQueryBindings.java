@@ -61,7 +61,7 @@ import com.mysql.cj.util.Util;
 
 public class ClientPreparedQueryBindings extends AbstractQueryBindings<ClientPreparedQueryBindValue> {
 
-    /** Charset encoder used to escape if needed, such as Yen sign in SJIS */
+    /** Charset encoder used to escape if needed, such as Yen Sign in SJIS */
     private CharsetEncoder charsetEncoder;
 
     private SimpleDateFormat ddf;

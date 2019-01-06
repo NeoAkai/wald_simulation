@@ -1,5 +1,6 @@
 package model.MapBuildingObject;
 
+import control.SQLHandler;
 import mapObjects.*;
 import control.ProgramController;
 import control.framework.UIController;
@@ -25,6 +26,7 @@ public class MapBuilder {
         this.barnInfo = barnInfo;
         this.tree = tree;
         this.pc = pc;
+
         this.ui = ui;
     }
 
@@ -122,7 +124,7 @@ public class MapBuilder {
                     grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,ui,pc,results.getInt(5),results.getInt(6)));
                 }else if(i == 1){
                     int timer = results.getInt(6);
-                    grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc,timer));
+                    grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc,timer,pc.getSqlHandler()));
                 }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }
@@ -139,23 +141,23 @@ public class MapBuilder {
                 int ID = animals.getInt(1);
                 String type = animals.getString(2);
                 if(type.equals("eichhoernchen")){
-                    barn.addAnimal(new Eichhörnchen(400,400,pc,"eichhoernchen",ID));
+                    barn.addAnimal(new Eichhörnchen(400,400,pc,"eichhoernchen",ID,ui));
                 }else if(type.equals("wurm")){
-                    barn.addAnimal(new Worm(400,400,pc,"wurm",ID));
+                    barn.addAnimal(new Worm(400,400,pc,"wurm",ID,ui));
                 }else if(type.equals("fuchs")){
-                    barn.addAnimal(new Fox(400,400,pc,"fuchs",ID));
+                    barn.addAnimal(new Fox(400,400,pc,"fuchs",ID,ui));
                 }else if(type.equals("hase")){
-                    barn.addAnimal(new Rabbit(400,400,pc,"hase",ID));
+                    barn.addAnimal(new Rabbit(400,400,pc,"hase",ID,ui));
                 }else if(type.equals("hirsch")){
-                    barn.addAnimal(new Hirsch(400,400,pc,"hirsch",ID));
+                    barn.addAnimal(new Hirsch(400,400,pc,"hirsch",ID,ui));
                 }else if(type.equals("schnecke")){
-                    barn.addAnimal(new Schnecke(400,400,pc,"schnecke",ID));
+                    barn.addAnimal(new Schnecke(400,400,pc,"schnecke",ID,ui));
                 }else if(type.equals("vogel")){
-                    barn.addAnimal(new Bird(400,400,pc,"vogel",ID));
+                    barn.addAnimal(new Bird(400,400,pc,"vogel",ID,ui));
                 }else if(type.equals("wildschwein")){
-                    barn.addAnimal(new WildPig(400,400,pc,"wildschwein",ID));
+                    barn.addAnimal(new WildPig(400,400,pc,"wildschwein",ID,ui));
                 }else if(type.equals("ziege")){
-                    barn.addAnimal(new Goat(400,400,pc,"ziege",ID));
+                    barn.addAnimal(new Goat(400,400,pc,"ziege",ID,ui));
                 }
             }
         }catch(Exception e){

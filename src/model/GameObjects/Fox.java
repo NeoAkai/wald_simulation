@@ -1,6 +1,7 @@
 package model.GameObjects;
 
 import control.ProgramController;
+import control.framework.UIController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -11,8 +12,8 @@ public class Fox extends Animal  {
     //Referenzen
 
 
-    public Fox(double x, double y, ProgramController pc, String t, int ID){
-        super(x,y,pc,t,ID);
+    public Fox(double x, double y, ProgramController pc, String t, int ID, UIController ui){
+        super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/fuchs_links.png";
         pathToImageRight = "assets/images/Animals/fuchs.png";
     }

@@ -355,7 +355,7 @@ public class StringUtils {
             throw new NumberFormatException(StringUtils.toString(buf));
         }
 
-        /* Check for a sign. */
+        /* Check for a Sign. */
         boolean negative = false;
 
         if ((char) buf[s] == '-') {
@@ -412,7 +412,7 @@ public class StringUtils {
             throw new NumberOutOfRange(Messages.getString("StringUtils.badIntFormat", new Object[] { StringUtils.toString(buf, offset, endpos - offset) }));
         }
 
-        /* Return the result of the appropriate sign. */
+        /* Return the result of the appropriate Sign. */
         return (negative ? (-i) : i);
     }
 
@@ -1985,7 +1985,7 @@ public class StringUtils {
     }
 
     /**
-     * Checks is the CharSequence contains digits only. No leading sign and thousands or decimal separators are allowed.
+     * Checks is the CharSequence contains digits only. No leading Sign and thousands or decimal separators are allowed.
      * 
      * @param cs
      *            The CharSequence to check.

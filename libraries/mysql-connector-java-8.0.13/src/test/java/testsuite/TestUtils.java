@@ -45,7 +45,7 @@ import java.util.List;
 
 public class TestUtils {
     /**
-     * Percent-encode all occurrence of the the percent sign (%) in the given string.
+     * Percent-encode all occurrence of the the percent Sign (%) in the given string.
      * 
      * @param strToEncode
      *            the string to encode

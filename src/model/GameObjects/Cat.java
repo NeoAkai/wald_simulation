@@ -1,6 +1,7 @@
 package model.GameObjects;
 
 import control.ProgramController;
+import control.framework.UIController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -11,8 +12,8 @@ public class Cat extends Animal  {
     //Referenzen
 
 
-    public Cat(double x, double y, ProgramController pc,String t, int ID){
-        super(x,y,pc,t,ID);
+    public Cat(double x, double y, ProgramController pc, String t, int ID, UIController ui){
+        super(x,y,pc,t,ID, ui);
         pathToImageLeft = "assets/images/Animals/cat_black_left.png";
         pathToImageRight = "assets/images/Animals/cat_black_right.png";
     }

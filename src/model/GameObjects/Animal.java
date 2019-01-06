@@ -1,6 +1,7 @@
 package model.GameObjects;
 
 import control.ProgramController;
+import control.framework.UIController;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
 
@@ -17,14 +18,23 @@ public class Animal extends GraphicalObject {
     protected ProgramController pc;
     protected String type;
     private int databaseID;
+    private Sign sign;
+    private double time = 30;
+    private UIController ui;
+    protected int price;
 
-    public Animal(double x, double y, ProgramController pc, String type, int ID){
+
+    public Animal(double x, double y, ProgramController pc, String type, int ID,UIController ui){
         this.x = x;
         this.y = y;
         this.pc = pc;
         this.type = type;
+        this.ui = ui;
         imageSet = false;
         this.databaseID = ID;
+
+        sign = new Sign(x,y-60,pc,this);
+        ui.drawObject(sign);
     }
 
 
@@ -82,7 +92,17 @@ public class Animal extends GraphicalObject {
                 //createAndSetNewImage("assets/images/cat_black_up.png");
             }
 
+            if(time < 200){
+                time = time - dt;
+            }
 
+            if(time <= 0){
+                time = 300;
+                sign.setVisibility(true);
+            }
+
+            sign.setnewX(x);
+            sign.setnewY(y);
 
         }
     }

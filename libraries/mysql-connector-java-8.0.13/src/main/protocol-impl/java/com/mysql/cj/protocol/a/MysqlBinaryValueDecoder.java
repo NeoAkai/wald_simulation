@@ -187,12 +187,12 @@ public class MysqlBinaryValueDecoder implements ValueDecoder {
             throw new DataReadException(Messages.getString("ResultSet.InvalidLengthForType", new Object[] { length, "LONG" }));
         }
 
-        // don't use BigInteger unless sign bit is used
+        // don't use BigInteger unless Sign bit is used
         if ((bytes[offset + 7] & 0x80) == 0) {
             return this.decodeInt8(bytes, offset, length, vf);
         }
 
-        // first byte is 0 to indicate sign
+        // first byte is 0 to indicate Sign
         byte[] bigEndian = new byte[] { 0, bytes[offset + 7], bytes[offset + 6], bytes[offset + 5], bytes[offset + 4], bytes[offset + 3], bytes[offset + 2],
                 bytes[offset + 1], bytes[offset] };
         BigInteger bigInt = new BigInteger(bigEndian);

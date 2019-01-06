@@ -45,7 +45,7 @@ public enum MysqlType implements SQLType {
     /**
      * DECIMAL[(M[,D])] [UNSIGNED] [ZEROFILL]
      * A packed "exact" fixed-point number. M is the total number of digits (the precision) and D is the number of digits
-     * after the decimal point (the scale). The decimal point and (for negative numbers) the "-" sign are not counted in M.
+     * after the decimal point (the scale). The decimal point and (for negative numbers) the "-" Sign are not counted in M.
      * If D is 0, values have no decimal point or fractional part. The maximum number of digits (M) for DECIMAL is 65.
      * The maximum number of supported decimals (D) is 30. If D is omitted, the default is 0. If M is omitted, the default is 10.
      * 

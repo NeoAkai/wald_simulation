@@ -35,6 +35,7 @@ public class XButton extends GraphicalObject {
             if(visible){
                 if(hitbox.contains(e.getPoint())){
                     pc.deactivateButton();
+                    pc.setInventoryVisible(false);
                 }
             }
         }

@@ -1691,7 +1691,7 @@ public final class MysqlxResultset {
    *   .. seealso:: protobuf encoding of primitive datatypes are decribed in https://developers.google.com/protocol-buffers/docs/encoding
    *   SINT
    *     ``.length``
-   *       maximum number of displayable decimal digits (including minus sign) of the type
+   *       maximum number of displayable decimal digits (including minus Sign) of the type
    *       .. note::
    *         valid range is 0-255, but usually you'll see 1-20
    *       =============== ==
@@ -1815,17 +1815,17 @@ public final class MysqlxResultset {
    *     from strings and other native arbitrary precision math datatypes.
    *     .. seealso:: packed BCD in https://en.wikipedia.org/wiki/Binary-coded_decimal
    *     ``.length``
-   *       maximum number of displayable decimal digits (*excluding* the decimal point and sign, but including ``.fractional_digits``)
+   *       maximum number of displayable decimal digits (*excluding* the decimal point and Sign, but including ``.fractional_digits``)
    *       .. note:: should be in the range of 1 - 65
    *     ``.fractional_digits``
    *       is the decimal digits to display out of length
    *       .. note:: should be in the range of 0 - 30
    *     ``value``
    *       the following bytes sequence:
-   *         ``| scale | BCD | sign | [0x0] |``
+   *         ``| scale | BCD | Sign | [0x0] |``
    *       * scale - 8bit scale value (number of decimal digit after the '.')
    *       * BCD - BCD encoded digits (4 bits for each digit)
-   *       * sign - sign encoded on 4 bits (0xc = "+", 0xd = "-")
+   *       * Sign - Sign encoded on 4 bits (0xc = "+", 0xd = "-")
    *       * 0x0 - last 4bits if length(digits) % 2 == 0
    *       Example: x04 0x12 0x34 0x01 0xd0 -&gt; -12.3401
    *   SET
@@ -2780,7 +2780,7 @@ public final class MysqlxResultset {
      *   .. seealso:: protobuf encoding of primitive datatypes are decribed in https://developers.google.com/protocol-buffers/docs/encoding
      *   SINT
      *     ``.length``
-     *       maximum number of displayable decimal digits (including minus sign) of the type
+     *       maximum number of displayable decimal digits (including minus Sign) of the type
      *       .. note::
      *         valid range is 0-255, but usually you'll see 1-20
      *       =============== ==
@@ -2904,17 +2904,17 @@ public final class MysqlxResultset {
      *     from strings and other native arbitrary precision math datatypes.
      *     .. seealso:: packed BCD in https://en.wikipedia.org/wiki/Binary-coded_decimal
      *     ``.length``
-     *       maximum number of displayable decimal digits (*excluding* the decimal point and sign, but including ``.fractional_digits``)
+     *       maximum number of displayable decimal digits (*excluding* the decimal point and Sign, but including ``.fractional_digits``)
      *       .. note:: should be in the range of 1 - 65
      *     ``.fractional_digits``
      *       is the decimal digits to display out of length
      *       .. note:: should be in the range of 0 - 30
      *     ``value``
      *       the following bytes sequence:
-     *         ``| scale | BCD | sign | [0x0] |``
+     *         ``| scale | BCD | Sign | [0x0] |``
      *       * scale - 8bit scale value (number of decimal digit after the '.')
      *       * BCD - BCD encoded digits (4 bits for each digit)
-     *       * sign - sign encoded on 4 bits (0xc = "+", 0xd = "-")
+     *       * Sign - Sign encoded on 4 bits (0xc = "+", 0xd = "-")
      *       * 0x0 - last 4bits if length(digits) % 2 == 0
      *       Example: x04 0x12 0x34 0x01 0xd0 -&gt; -12.3401
      *   SET

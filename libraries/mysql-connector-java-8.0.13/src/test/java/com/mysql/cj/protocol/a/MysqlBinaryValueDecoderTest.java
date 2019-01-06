@@ -96,7 +96,7 @@ public class MysqlBinaryValueDecoderTest {
 
         // big-endian version of 2^64-1 (aka Long.MAX_VALUE * 2 + 1)
         byte[] be = BigInteger.valueOf(Long.MAX_VALUE).multiply(new BigInteger("2")).add(new BigInteger("1")).toByteArray();
-        // uppermost byte is sign byte
+        // uppermost byte is Sign byte
         byte[] unsignedInt8Max = new byte[] { be[8], be[7], be[6], be[5], be[4], be[3], be[2], be[1] };
         assertEquals(8, unsignedInt8Max.length);
         decoded = this.valueDecoder.decodeUInt8(unsignedInt8Max, 0, 8, vf);

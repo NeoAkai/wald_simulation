@@ -2,6 +2,7 @@ package model.GameObjects;
 
 import control.Config;
 import control.ProgramController;
+import control.SQLHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
@@ -15,13 +16,15 @@ public class Plant extends ProducingObject{
     private BufferedImage growingImage, doneImage;
     private boolean grown = false;
     private boolean klicked = false;
+    private SQLHandler sqlHandler;
 
-    public Plant(String type, int x, int y, ProgramController pc, double itemCooldown){
+    public Plant(String type, int x, int y, ProgramController pc, double itemCooldown,SQLHandler sqlHandler){
         super(pc);
         this.x = x;
         this.y = y;
         this.type = type;
         this.itemCooldown = itemCooldown;
+        this.sqlHandler = sqlHandler;
         maxItemCooldown = 25;
         setImage();
     }
@@ -58,6 +61,15 @@ public class Plant extends ProducingObject{
             if(klicked) {
 
                 pc.removePlant(this);
+
+
+                if(type.equals("cherry")){
+                    sqlHandler.changeCherriesByAmount(3);
+                }else if(type.equals("carrot")){
+                    sqlHandler.changeCarrotsByAmount(3);
+                }else if(type.equals("wheat")){
+                    sqlHandler.changeWheatByAmount(3);
+                }
             }
             klicked = !klicked;
         }

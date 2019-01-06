@@ -59,7 +59,7 @@ public class MysqlTextValueDecoder implements ValueDecoder {
     /** String length of String timestamp with nanos. This does not come from MySQL server but we support it via string conversion. */
     public static final int TIMESTAMP_STR_LEN_WITH_NANOS = TIMESTAMP_NOFRAC_STR_LEN + 10;
 
-    /** Max string length of a signed long = 9223372036854775807 (19+1 for minus sign) */
+    /** Max string length of a signed long = 9223372036854775807 (19+1 for minus Sign) */
     private static final int MAX_SIGNED_LONG_LEN = 20;
 
     public <T> T decodeDate(byte[] bytes, int offset, int length, ValueFactory<T> vf) {

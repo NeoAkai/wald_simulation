@@ -24,12 +24,11 @@ public class InventoryButton extends MenuButton {
 
     @Override
     protected void doButtonFunction(MouseEvent e) {
-
     }
 
     @Override
     protected void onButtonActivation() {
-
+        pc.setInventoryVisible(true);
     }
 
     @Override

@@ -165,7 +165,7 @@ public class XProtocolDecoder implements ValueDecoder {
     @Override
     public <T> T decodeUInt8(byte[] bytes, int offset, int length, ValueFactory<T> vf) {
         try {
-            // protobuf stores an unsigned 64bit int into a java long with the highest bit as the sign, we re-interpret it using ByteBuffer (with a prepended
+            // protobuf stores an unsigned 64bit int into a java long with the highest bit as the Sign, we re-interpret it using ByteBuffer (with a prepended
             // 0-byte to avoid negative)
             BigInteger v = new BigInteger(
                     ByteBuffer.allocate(9).put((byte) 0).putLong(CodedInputStream.newInstance(bytes, offset, length).readUInt64()).array());
@@ -200,11 +200,11 @@ public class XProtocolDecoder implements ValueDecoder {
             // packed BCD format (c.f. wikipedia)
             // TODO: optimization possibilities include using int/long if the digits is < X and scale = 0
             byte scale = inputStream.readRawByte();
-            // we allocate an extra char for the sign
+            // we allocate an extra char for the Sign
             CharBuffer unscaledString = CharBuffer.allocate(2 * inputStream.getBytesUntilLimit());
             unscaledString.position(1);
             byte sign = 0;
-            // read until we encounter the sign bit
+            // read until we encounter the Sign bit
             while (true) {
                 int b = 0xFF & inputStream.readRawByte();
                 if ((b >> 4) > 9) {
@@ -260,7 +260,7 @@ public class XProtocolDecoder implements ValueDecoder {
     @Override
     public <T> T decodeBit(byte[] bytes, int offset, int length, ValueFactory<T> vf) {
         try {
-            // protobuf stores an unsigned 64bit int into a java long with the highest bit as the sign, we re-interpret it using ByteBuffer (with a prepended
+            // protobuf stores an unsigned 64bit int into a java long with the highest bit as the Sign, we re-interpret it using ByteBuffer (with a prepended
             // 0-byte to avoid negative)
             byte[] buf = ByteBuffer.allocate(Long.BYTES + 1).put((byte) 0).putLong(CodedInputStream.newInstance(bytes, offset, length).readUInt64()).array();
             return vf.createFromBit(buf, 0, Long.BYTES + 1);
