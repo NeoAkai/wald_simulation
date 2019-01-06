@@ -1,6 +1,8 @@
 package control;
 
 import model.GameObjects.Barn;
+import model.GameObjects.Plant;
+import model.GameObjects.ProducingObject;
 import model.GameObjects.UserInterface;
 import model.MapBuildingObject.MapBuilder;
 import model.abitur.datenstrukturen.List;
@@ -65,6 +67,8 @@ public class SQLHandler {
                         "typ varchar(255) NOT NULL," +
                         "x int NOT NULL," +
                         "y int NOT NULL," +
+                        "productionTimer int NOT NULL," +
+                        "starvingTimer int NOT NULL," +
                         "PRIMARY KEY (ID)," +
                         "FOREIGN KEY (x,y) REFERENCES JA_Grass(x, y)" +
                         ");");
@@ -152,8 +156,8 @@ public class SQLHandler {
 
     public void addBarn(int x, int y, String type){
         try{
-            stmt.execute("INSERT INTO JA_Stall (x, y, typ)" +
-                         "VALUES ('" + x + "', '" + y + "', '" + type + "');");
+            stmt.execute("INSERT INTO JA_Stall (x, y, typ, productionTimer, starvingTimer)" +
+                         "VALUES ('" + x + "', '" + y + "', '" + type + "', 61, 10000);");
         }catch (Exception e){
             if(getDebugMsg) System.out.println("Stall nicht hinzugefügt");
         }
@@ -182,7 +186,6 @@ public class SQLHandler {
         try{
             String s = "INSERT INTO JA_Pflanze (typ, x, y, isGrown, growTimer)" +
                        "VALUES('" + type + "'," + x +"," + y + ", 0, 25 );";
-            System.out.println(s);
             stmt.execute(s);
         }catch(Exception e){
             if(getDebugMsg) System.out.println("Pflanze nicht hinzugefügt");
@@ -221,7 +224,6 @@ public class SQLHandler {
                        "WHERE ID = " + animalID + ";";
             //System.out.println(s);
             stmt.execute(s);
-            System.out.println(123);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -364,5 +366,43 @@ public class SQLHandler {
             System.out.println("kann nicht karotten getten");
         }
         return -1;
+    }
+
+    public void updateTreeGrowTimer(int x, int y, int timer){
+        try{
+            stmt.execute("UPDATE JA_Baum " +
+                         "SET growTimer = " + timer + " " +
+                         "WHERE x = " + x + " AND y = " + y + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void growTree(int x, int y){
+        try{
+            stmt.execute("UPDATE JA_Baum " +
+                         "SET growTimer = 0, isGrown = 1 " +
+                         "WHERE x = " + x + " AND y = " + y + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void updateProductionTimer(ProducingObject p, int timer){
+        try{
+            if(p instanceof Plant){
+                String s = "UPDATE JA_Pflanze " +
+                        "SET growTimer = " + timer + " " +
+                        "WHERE x = " + (int)p.getY()/50 + " AND y = " + (int)p.getX()/50 + ";";
+                stmt.execute(s);
+            }else if(p instanceof Barn){
+                String s = "UPDATE JA_Stall " +
+                        "SET productionTimer = " + timer + ", starvingTimer = " + ((int)((Barn) p).getStarvingTime()) + " " +
+                        "WHERE x = " + (int)p.getY()/50 + " AND y = " + (int)p.getX()/50 + ";";
+                stmt.execute(s);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

@@ -1,11 +1,18 @@
 package model.GameObjects;
 
+import control.ProgramController;
 import mapObjects.CoveringObject;
 import view.framework.DrawTool;
 
 public class ProducingObject extends CoveringObject {
 
-    protected double itemCooldown, maxItemCooldown, progressBarColorR, progressBarWidth, progressBarPercentage;
+    protected double itemCooldown, maxItemCooldown, progressBarColorR, progressBarWidth, progressBarPercentage, itemCooldownUpdateCooldown = 5;
+
+    protected ProgramController pc;
+
+    public ProducingObject(ProgramController pc) {
+        this.pc = pc;
+    }
 
     @Override
     public void update(double dt) {
@@ -17,6 +24,12 @@ public class ProducingObject extends CoveringObject {
         progressBarPercentage = itemCooldown / maxItemCooldown;
         progressBarWidth = -0.5 * progressBarPercentage * 100 + 50;
         progressBarColorR = 2.55 * progressBarPercentage * 100;
+        if(itemCooldownUpdateCooldown > 0){
+            itemCooldownUpdateCooldown -= dt;
+        }else{
+            itemCooldownUpdateCooldown = 5;
+            pc.getSqlHandler().updateProductionTimer(this,(int)itemCooldown);
+        }
     }
 
     @Override

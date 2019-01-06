@@ -29,7 +29,6 @@ public class MapBuilder {
     }
 
     public void loadFromTxt() {
-        System.out.println(1);
         pc.addCash(500);
 
 
@@ -120,9 +119,10 @@ public class MapBuilder {
                 int x = results.getInt(3);
                 int y = results.getInt(4);
                 if(i == 0) {
-                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,ui,pc));
+                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,ui,pc,results.getInt(5),results.getInt(6)));
                 }else if(i == 1){
-                    grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc));
+                    int timer = results.getInt(6);
+                    grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc,timer));
                 }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }

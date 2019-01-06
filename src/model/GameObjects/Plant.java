@@ -14,15 +14,14 @@ public class Plant extends ProducingObject{
     private String type;
     private BufferedImage growingImage, doneImage;
     private boolean grown = false;
-    private ProgramController pc;
     private boolean klicked = false;
 
-    public Plant(String type, int x, int y, ProgramController pc){
+    public Plant(String type, int x, int y, ProgramController pc, double itemCooldown){
+        super(pc);
         this.x = x;
         this.y = y;
         this.type = type;
-        this.pc = pc;
-        itemCooldown = 25;
+        this.itemCooldown = itemCooldown;
         maxItemCooldown = 25;
         setImage();
     }

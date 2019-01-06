@@ -21,7 +21,7 @@ public class Tree extends CoveringObject  {
     private ProgramController pc;
     private boolean klicked = false;
     private boolean living = true;
-    private double growTime = 1;
+    private double growTime = 1, growTimerUpdateTimer = 5;
     private boolean young = true;
 
     private boolean parasiten = false;
@@ -109,12 +109,20 @@ public class Tree extends CoveringObject  {
 
         if(young){
             growTime = growTime - dt;
+            if(growTimerUpdateTimer > 0){
+                growTimerUpdateTimer = growTimerUpdateTimer-dt;
+            }else{
+                growTimerUpdateTimer = 5;
+                pc.getSqlHandler().updateTreeGrowTimer((int)(this.y/50),(int)(this.x/50),(int)growTime);
+            }
         }
 
         if(growTime <= 0 && young){
             young = false;
+            pc.getSqlHandler().growTree((int)(this.y/50),(int)(this.x/50));
             checkYoungness();
         }
+
     }
 
     public void parasiten(boolean b){

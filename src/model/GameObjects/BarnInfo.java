@@ -86,7 +86,6 @@ public class BarnInfo extends GraphicalObject {
     public void mouseReleased(MouseEvent e) {
         if(klicked){
             if(visible) {
-                System.out.println(1);
                 if (e.getX() > x + 100 && e.getX() < x + 450 && e.getY() > y + 440 && e.getY() < y + 560) {
                     System.out.println("Fütterungszeit");
                     //if(inventory.getFood(food)>=5){

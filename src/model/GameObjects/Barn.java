@@ -13,22 +13,23 @@ public class Barn extends ProducingObject {
     private String food;
     private BarnInfo barnInfo;
     private UIController ui;
-    private ProgramController pc;
     private boolean klicked = false;
     private int index = 0;
 
     //Starving-Attribute
-    private double starvingTime = 10000;
+    private double starvingTime;
     private boolean starving = false;
     private int multiStarving;
     
 
-    public Barn(String type, double x, double y, UIController ui,ProgramController pc){
+    public Barn(String type, double x, double y, UIController ui,ProgramController pc, int productionTime, int starvingTime){
+        super(pc);
         this.x = x;
         this.y = y;
         this.type = type;
-        this.pc = pc;
         this.ui = ui;
+        this.starvingTime = starvingTime;
+        this.itemCooldown = productionTime;
 
         if(type.equals("wurm"))index = 1;
         if(type.equals("eichhoernchen"))index = 2;
@@ -67,6 +68,7 @@ public class Barn extends ProducingObject {
 
     @Override
     public void update(double dt) {
+        super.update(dt);
         multiStarving = getAllAnimals();
 
         if(multiStarving>0){
