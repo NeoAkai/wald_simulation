@@ -170,7 +170,7 @@ public class MapBuilder {
     public void loadAnimalsToPC(ResultSet results){
         try {
             while (results.next()) {
-                pc.addAnimalFromDatabase(results.getString(1));
+                pc.addAnimalFromDatabase(results.getString(2), results.getInt(1));
             }
         }catch (Exception e){
             e.printStackTrace();

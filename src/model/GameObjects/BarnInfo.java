@@ -85,28 +85,28 @@ public class BarnInfo extends GraphicalObject {
     @Override
     public void mouseReleased(MouseEvent e) {
         if(klicked){
-            if(visible){
-            if(e.getX()>x+100&&e.getX()<x+450&&e.getY()>y+440&&e.getY()<y+560){
-                System.out.println("Fütterungszeit");
-                //if(inventory.getFood(food)>=5){
-                //inventory.addFood(food,-5);
-                b.addStarvingTime(5000);
-                //}
+            if(visible) {
+                System.out.println(1);
+                if (e.getX() > x + 100 && e.getX() < x + 450 && e.getY() > y + 440 && e.getY() < y + 560) {
+                    System.out.println("Fütterungszeit");
+                    //if(inventory.getFood(food)>=5){
+                    //inventory.addFood(food,-5);
+                    b.addStarvingTime(5000);
+                    //}
 
                 }
-            }
 
-            if(e.getX()>x+522&&e.getX()<x+569&&e.getY()>y+11&&e.getY()<y+54){
-                visible = false;
-            }
 
-            if(e.getX()>x+406&&e.getX()<x+469&&e.getY()>y+280&&e.getY()<y+342){
-                if(pc.checkFreeAnimalPlaces()){
-                    b.removeAnimal();
-                    pc.addAnimal(b.returnIndex(),0);
+                if (e.getX() > x + 522 && e.getX() < x + 569 && e.getY() > y + 11 && e.getY() < y + 54) {
+                    visible = false;
+                }
+
+                if (e.getX() > x + 406 && e.getX() < x + 469 && e.getY() > y + 280 && e.getY() < y + 342) {
+                    if (pc.checkFreeAnimalPlaces()) {
+                        pc.freeAnimal(b.removeAnimal(),this);
+                    }
                 }
             }
-
         }
         klicked =! klicked;
     }

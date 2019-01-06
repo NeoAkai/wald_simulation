@@ -37,9 +37,9 @@ public class SQLHandler {
                         "geld int," +
                         "holz int," +
                         "harmonie int," +
-                        //"heu int," +
-                        //"karotten int," +
-                        //"kirschen int," +
+                        "heu int," +
+                        "karotten int," +
+                        "kirschen int," +
                         "PRIMARY KEY(ID)" +
                         ")");
                 stmt.execute("INSERT INTO  JA_Farmer (geld, holz, harmonie)" +
@@ -129,7 +129,7 @@ public class SQLHandler {
         if(isGrown) i = 1;
         try {
             String s = "INSERT INTO JA_Baum (art, x, y, isGrown, growTimer)" +
-                    "VALUES ('" + art + "', " + x + ", " + y + ", " + i + ", " + growTimer + ");";
+                       "VALUES ('" + art + "', " + x + ", " + y + ", " + i + ", " + growTimer + ");";
             System.out.println(s);
             stmt.execute(s);
         }catch(Exception e){
@@ -144,7 +144,7 @@ public class SQLHandler {
         }
         try {
             stmt.execute("INSERT INTO JA_Grass (x, y, treePlantable)" +
-                    "VALUES ('" + x + "', '" + y + "', '" + i + "');");
+                         "VALUES ('" + x + "', '" + y + "', '" + i + "');");
         } catch(Exception e){
             if(getDebugMsg) System.out.println("Grass nicht hinzugefügt");
         }
@@ -153,30 +153,35 @@ public class SQLHandler {
     public void addBarn(int x, int y, String type){
         try{
             stmt.execute("INSERT INTO JA_Stall (x, y, typ)" +
-                    "VALUES ('" + x + "', '" + y + "', '" + type + "');");
+                         "VALUES ('" + x + "', '" + y + "', '" + type + "');");
         }catch (Exception e){
             if(getDebugMsg) System.out.println("Stall nicht hinzugefügt");
         }
     }
 
-    public void addAnimal(String type, Barn barn){
+    public int addAnimal(String type, Barn barn){
         try{
             if(barn == null){
                stmt.execute("INSERT INTO JA_Tier (art, inStall, stallID)" +
-                       "VALUES  ('" + type + "', 0, null);");
+                            "VALUES  ('" + type + "', 0, null);");
             }else{
                 stmt.execute("INSERT INTO JA_Tier (art, inStall, stallID)" +
-                        "VALUES ('" + type + "', 1, '" + getBarnID(barn) + "');");
+                             "VALUES ('" + type + "', 1, '" + getBarnID(barn) + "');");
             }
+            ResultSet s = stmt.executeQuery("SELECT MAX(ID) FROM JA_Tier");
+            s.next();
+            return s.getInt(1);
         }catch (Exception e){
-            if(getDebugMsg) System.out.println("Tier nicht hinzugefügt");
+            //if(getDebugMsg) System.out.println("Tier nicht hinzugefügt");
+            e.printStackTrace();
         }
+        return -1;
     }
 
     public void addPlant(String type, int x, int y){
         try{
             String s = "INSERT INTO JA_Pflanze (typ, x, y, isGrown, growTimer)" +
-                    "VALUES('" + type + "'," + x +"," + y + ", 0, 25 );";
+                       "VALUES('" + type + "'," + x +"," + y + ", 0, 25 );";
             System.out.println(s);
             stmt.execute(s);
         }catch(Exception e){
@@ -184,9 +189,21 @@ public class SQLHandler {
         }
     }
 
+    public void removeBarn(Barn barn){
+        try{
+            int barnID = getBarnID(barn);
+            stmt.execute("DELETE FROM JA_Tier WHERE stallID = " + barnID + ";");
+            stmt.execute("DELETE FROM JA_Stall WHERE ID = " + barnID + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     private int getBarnID(Barn barn){
         try {
-            String s = "SELECT ID FROM JA_Stall WHERE x = " + ((int)barn.getY()/50) + " AND y = " + ((int)barn.getX()) / 50 + ";";
+            String s = "SELECT ID " +
+                       "FROM JA_Stall " +
+                       "WHERE x = " + ((int)barn.getY()/50) + " AND y = " + ((int)barn.getX()) / 50 + ";";
             ResultSet results = stmt.executeQuery(s);
             while (results.next()){
                 return results.getInt(1);
@@ -200,12 +217,22 @@ public class SQLHandler {
     public void updateAnimalBarn(int animalID, Barn barn){
         try{
             String s = "UPDATE JA_Tier " +
-                    "SET stallID = " + getBarnID(barn) + ", inStall = 1 " +
-                    "WHERE ID = " + animalID + ";";
-            System.out.println(s);
+                       "SET stallID = " + getBarnID(barn) + ", inStall = 1 " +
+                       "WHERE ID = " + animalID + ";";
+            //System.out.println(s);
             stmt.execute(s);
             System.out.println(123);
         }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void freeAnimal(int animalID){
+        try{
+            stmt.execute("UPDATE JA_Tier " +
+                         "SET stallID = NULL, inStall = 0 " +
+                         "WHERE ID = " + animalID + ";");
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -264,11 +291,14 @@ public class SQLHandler {
 
     private void loadAnimals(){
         try {
-            mapBuilder.loadAnimalsToPC(stmt.executeQuery("SELECT art FROM JA_Tier WHERE inStall = 0;"));
+            mapBuilder.loadAnimalsToPC(stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 0;"));
             ResultSet barns = stmt.executeQuery("SELECT ID, x, y FROM JA_Stall;");
-            //while (barns.next()) {
-              //  mapBuilder.loadAnimalsToBarn(stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";"), barns.getInt(2), barns.getInt(3));
-            //}
+            /*while (barns.next()) {
+            ResultSet s = stmt.executeQuery("SELECT ID, art " +
+                                            "FROM JA_Tier " +
+                                            "WHERE inStall = 1 AND stallID = " + barns.getInt(1) + ";");
+                mapBuilder.loadAnimalsToBarn(s, barns.getInt(2), barns.getInt(3));
+            }*/
             List<int[]> barnDataList = new List();
             while(barns.next()){
                 barnDataList.append(new int[3]);
@@ -279,7 +309,9 @@ public class SQLHandler {
             }
             barnDataList.toFirst();
             while (barnDataList.hasAccess()){
-                ResultSet s = stmt.executeQuery("SELECT ID, art FROM JA_Tier WHERE inStall = 1 AND stallID = " + barnDataList.getContent()[0] + ";");
+                ResultSet s = stmt.executeQuery("SELECT ID, art " +
+                                                "FROM JA_Tier " +
+                                                "WHERE inStall = 1 AND stallID = " + barnDataList.getContent()[0] + ";");
                 mapBuilder.loadAnimalsToBarn(s,barnDataList.getContent()[1], barnDataList.getContent()[2]);
                 barnDataList.next();
             }
@@ -290,9 +322,47 @@ public class SQLHandler {
 
     public void removeTreeFromDatabase(int x, int y){
         try {
-            stmt.execute("DELETE FROM JA_Baum WHERE x = " + x + " AND y = " + y + ";");
+            stmt.execute("DELETE " +
+                         "FROM JA_Baum " +
+                         "WHERE x = " + x + " AND y = " + y + ";");
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public int getCarrots(){
+        try {
+            ResultSet s = stmt.executeQuery("SELECT karotten FROM JA_Farmer");
+            while(s.next()){
+                return s.getInt(1);
+            }
+        }catch(Exception e){
+            System.out.println("kann nicht karotten getten");
+        }
+        return -1;
+    }
+
+    public int getWheat(){
+        try {
+            ResultSet s = stmt.executeQuery("SELECT heu FROM JA_Farmer");
+            while(s.next()){
+                return s.getInt(1);
+            }
+        }catch(Exception e){
+            System.out.println("kann nicht karotten getten");
+        }
+        return -1;
+    }
+
+    public int getCherries(){
+        try {
+            ResultSet s = stmt.executeQuery("SELECT kirschen FROM JA_Farmer");
+            while(s.next()){
+                return s.getInt(1);
+            }
+        }catch(Exception e){
+            System.out.println("kann nicht karotten getten");
+        }
+        return -1;
     }
 }

@@ -77,7 +77,7 @@ public class Barn extends ProducingObject {
         }
 
         if(starvingTime<=0){
-            //HIER!
+            pc.removeBarn(this);
         }
     }
 
@@ -208,14 +208,17 @@ public class Barn extends ProducingObject {
         starvingTime = starvingTime + amount;
     }
 
-    public void removeAnimal(){
-       boolean deleted = false;
+    public Animal removeAnimal(){
+        Animal a = null;
+        boolean deleted = false;
         for(int i = 0; i < animals.length&&!deleted;i++){
             if(animals[i] != null){
+                a = animals[i];
                 animals[i] = null;
                 deleted = true;
             }
         }
+        return a;
     }
 
     public int returnIndex(){
