@@ -105,7 +105,7 @@ public class MapBuilder {
                 if(results.getInt(5) == 1) {
                     grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(2), pc, -1));
                 }else{
-                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * x + 50, results.getString(2), pc, results.getDouble(6)));
+                    grass[x][y].setCoveringObject(new Tree(50 * y, 50 * (x-1) + 50, results.getString(2), pc, results.getDouble(6)));
                 }
                 ui.drawObject(grass[x][y].getCoveringObject());
             }

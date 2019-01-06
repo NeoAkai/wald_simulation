@@ -445,6 +445,11 @@ public class ProgramController {
         ((ShopButton)buttons[2]).resetButtonsOnDrawingPanel();
     }
 
+    public void redrawBarnInfo(BarnInfo barnInfo){
+        uiController.removeObject(barnInfo);
+        uiController.drawObject(barnInfo);
+    }
+
     /**
      * Diese Methode wird wiederholt automatisch aufgerufen und zwar für jede Frame einmal, d.h. über 25 mal pro Sekunde.
      * @param dt Die Zeit in Sekunden, die seit dem letzten Aufruf der Methode vergangen ist.

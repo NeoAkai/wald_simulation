@@ -2,9 +2,6 @@ package model.GameObjects;
 
 import control.ProgramController;
 import control.framework.UIController;
-import mapObjects.CoveringObject;
-import model.framework.GraphicalObject;
-import view.framework.DrawTool;
 
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -154,6 +151,7 @@ public class Barn extends ProducingObject {
         if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50){
           if(!klicked) {
               barnInfo.setVisible(true);
+              pc.redrawBarnInfo(barnInfo);
           }
           klicked = !klicked;
         }

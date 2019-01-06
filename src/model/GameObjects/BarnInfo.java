@@ -28,7 +28,7 @@ public class BarnInfo extends GraphicalObject {
         this.b = b;
         createAndSetNewImage("assets/images/UiImages/BarnInfo.png");
 
-        hitbox = new Rectangle2D.Double(x+100,y+545,350,120);
+        hitbox = new Rectangle2D.Double(x+100,y+445,350,120);
 
         setImage();
     }
