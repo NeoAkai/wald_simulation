@@ -16,6 +16,7 @@ public class Hirsch extends Animal  {
         super(x,y, pc,t,ID,ui);
         pathToImageLeft = "assets/images/hirsch_links.png";
         pathToImageRight = "assets/images/Animals/hirsch.png";
+        price = 180;
     }
 
     @Override

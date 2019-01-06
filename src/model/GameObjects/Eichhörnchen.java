@@ -16,6 +16,7 @@ public class Eichhörnchen extends Animal  {
         super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/eichhörnchen_links.png";
         pathToImageRight = "assets/images/Animals/eichhörnchen.png";
+        price = 100;
     }
 
     @Override

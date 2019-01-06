@@ -16,6 +16,7 @@ public class Goat extends Animal  {
         super(x,y, pc,t,ID,ui);
         pathToImageLeft = "assets/images/ziege_links.png";
         pathToImageRight = "assets/images/Animals/ziege.png";
+        price = 250;
     }
 
     @Override

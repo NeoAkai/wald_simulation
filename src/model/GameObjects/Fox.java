@@ -16,6 +16,7 @@ public class Fox extends Animal  {
         super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/fuchs_links.png";
         pathToImageRight = "assets/images/Animals/fuchs.png";
+        price = 120;
     }
 
     @Override

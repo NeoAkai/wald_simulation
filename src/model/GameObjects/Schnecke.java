@@ -16,6 +16,7 @@ public class Schnecke extends Animal  {
         super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/schnecke_links.png";
         pathToImageRight = "assets/images/Animals/schnecke.png";
+        price = 150;
     }
 
     @Override

@@ -19,25 +19,35 @@ public class Sign extends GraphicalObject {
     private ProgramController pc;
     private boolean visible = false;
     private Animal animal;
+    private Barn b;
 
     public Sign(double x, double y, ProgramController pc,Animal animal){
         this.x = x;
         this.y = y;
         this.pc = pc;
         this.animal = animal;
-        createAndSetNewImage("assets/images/UiImages/sign.png");
+        createAndSetNewImage("assets/images/UiImages/schild.png");
 
 
     }
 
+    public Sign(double x, double y, ProgramController pc,Barn b){
+        this.x = x;
+        this.y = y;
+        this.pc = pc;
+        this.b = b;
+        createAndSetNewImage("assets/images/UiImages/schild.png");
+
+
+    }
 
     @Override
     public void draw(DrawTool drawTool) {
 
-        //if(visible){
-            drawTool.drawImage(getMyImage(),0,0);
+        if(visible){
+            drawTool.drawImage(getMyImage(),x,y);
 
-       // }
+        }
     }
 
     public void setVisibility(boolean a){
@@ -47,7 +57,10 @@ public class Sign extends GraphicalObject {
     public void mouseReleased(MouseEvent e){
         if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+60&&visible){
             setVisibility(false);
-            System.out.println("lol");
+            if(animal!=null)animal.setTime(250);
+            if(b!=null) b.setnewTime(250);
+            if(animal!=null)pc.addCash(animal.getPrice());
+            if(b!=null)pc.addCash(b.getPrice());
 
         }
     }

@@ -16,6 +16,7 @@ public class WildPig extends Animal  {
         super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/wildschwein_links.png";
         pathToImageRight = "assets/images/Animals/wildschwein.png";
+        price = 200;
     }
 
     @Override

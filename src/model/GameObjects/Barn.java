@@ -15,11 +15,16 @@ public class Barn extends ProducingObject {
     private UIController ui;
     private boolean klicked = false;
     private int index = 0;
+    private int price;
+    private Sign sign;
+    private ProgramController pc;
+    private double time = 200;
 
     //Starving-Attribute
     private double starvingTime;
     private boolean starving = false;
     private int multiStarving;
+
     
 
     public Barn(String type, double x, double y, UIController ui,ProgramController pc, int productionTime, int starvingTime){
@@ -30,15 +35,40 @@ public class Barn extends ProducingObject {
         this.ui = ui;
         this.starvingTime = starvingTime;
         this.itemCooldown = productionTime;
+        this.pc = pc;
 
-        if(type.equals("wurm"))index = 1;
-        if(type.equals("eichhoernchen"))index = 2;
-        if(type.equals("fuchs"))index = 3;
-        if(type.equals("hase"))index = 4;
-        if(type.equals("hirsch"))index = 5;
-        if(type.equals("schnecke"))index = 6;
-        if(type.equals("vogel"))index = 7;
-        if(type.equals("ziege"))index = 9;
+        if(type.equals("wurm")){
+            index = 1;
+            price = 50;
+        }
+        if(type.equals("eichhoernchen")){
+            index = 2;
+            price = 100;
+        }
+        if(type.equals("fuchs")){
+            index = 3;
+            price = 120;
+        }
+        if(type.equals("hase")){
+            index = 4;
+            price = 120;
+        }
+        if(type.equals("hirsch")){
+            index = 5;
+            price = 180;
+        }
+        if(type.equals("schnecke")){
+            index = 6;
+            price = 150;
+        }
+        if(type.equals("vogel")){
+            index = 7;
+            price = 80;
+        }
+        if(type.equals("ziege")){
+            index = 9;
+            price = 250;
+        }
 
 
 
@@ -58,6 +88,9 @@ public class Barn extends ProducingObject {
         barnInfo = new BarnInfo(400,50,pc,this);
         ui.drawObject(barnInfo);
         multiStarving = getAllAnimals();
+
+        sign = new Sign(x,y,pc,this);
+        ui.drawObject(sign);
 
     }
 
@@ -81,6 +114,27 @@ public class Barn extends ProducingObject {
         if(starvingTime<=0){
             pc.removeBarn(this);
         }
+
+
+        if(time < 200&&getAllAnimals()>0){
+            time = time - dt;
+        }
+
+        if(time <= 0){
+            time = 300;
+            sign.setVisibility(true);
+        }
+
+        sign.setnewX(x);
+        sign.setnewY(y);
+    }
+
+    public void setnewTime(double a){
+        time = a;
+    }
+
+    public int getPrice(){
+        return price*getAllAnimals();
     }
 
     public boolean addAnimal(Animal a){

@@ -14,7 +14,7 @@ public class Bird extends Animal  {
 
     public Bird(double x, double y, ProgramController pc, String t, int ID, UIController ui){
         super(x,y,pc,t,ID, ui);
-
+        price = 80;
         pathToImageLeft = "assets/images/vogel_links.png";
         pathToImageRight = "assets/images/Animals/vogel.png";
     }

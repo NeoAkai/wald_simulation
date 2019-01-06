@@ -19,7 +19,7 @@ public class Animal extends GraphicalObject {
     protected String type;
     private int databaseID;
     private Sign sign;
-    private double time = 30;
+    private double time = 200;
     private UIController ui;
     protected int price;
 
@@ -132,5 +132,12 @@ public class Animal extends GraphicalObject {
 
     public void setDatabaseID(int databaseID) {
         this.databaseID = databaseID;
+    }
+
+    public void setTime(int a){
+        time = a;
+    }
+    public int getPrice(){
+        return price;
     }
 }

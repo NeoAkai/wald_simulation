@@ -16,6 +16,7 @@ public class Rabbit extends Animal  {
         super(x,y,pc,t,ID,ui);
         pathToImageLeft = "assets/images/hase_links.png";
         pathToImageRight = "assets/images/Animals/hase.png";
+        price = 120;
     }
 
     @Override
