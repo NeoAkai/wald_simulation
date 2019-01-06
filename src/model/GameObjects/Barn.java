@@ -44,6 +44,7 @@ public class Barn extends ProducingObject {
             food = "cherry";
         }
         barnInfo = new BarnInfo(400,50,pc,this);
+        ui.drawObject(barnInfo);
     }
 
     /*@Override
@@ -156,6 +157,16 @@ public class Barn extends ProducingObject {
           }
           klicked = !klicked;
         }
+    }
+
+    public int getAllAnimals(){
+       int animalCounter = 0;
+        for(int i = 0; i < animals.length; i++){
+            if(animals[i]!=null){
+                animalCounter++;
+            }
+        }
+        return animalCounter;
     }
 
 }

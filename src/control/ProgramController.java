@@ -291,6 +291,10 @@ public class ProgramController {
         }
     }
 
+    public void setBarnInfoVisibility(boolean a){
+
+    }
+
     public void addWood(int amount){
         userInterface.addWood(amount);
         sqlHandler.updateWood();
