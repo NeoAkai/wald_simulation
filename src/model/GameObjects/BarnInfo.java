@@ -28,7 +28,6 @@ public class BarnInfo extends GraphicalObject {
         this.b = b;
         createAndSetNewImage("assets/images/UiImages/BarnInfo.png");
 
-        hitbox = new Rectangle2D.Double(x+100,y+445,350,120);
 
         setImage();
     }
@@ -69,6 +68,16 @@ public class BarnInfo extends GraphicalObject {
 
             drawTool.drawImage(food,x+260,y+495);
 
+            if(b.getStarving())drawTool.setCurrentColor(255,0,0,255);
+            if(!b.getStarving())drawTool.setCurrentColor(0,0,0,255);
+
+            if(b.getMultiStarving()!=0) {
+                drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime() / b.getMultiStarving()));
+            }else{
+                drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime()));
+
+            }
+
 
         }
     }
@@ -77,8 +86,13 @@ public class BarnInfo extends GraphicalObject {
     public void mouseReleased(MouseEvent e) {
         if(klicked){
             if(visible){
-                if(hitbox.contains(e.getPoint())){
-                    System.out.println("Fütterungszeit");
+            if(e.getX()>x+100&&e.getX()<x+450&&e.getY()>y+440&&e.getY()<y+560){
+                System.out.println("Fütterungszeit");
+                //if(inventory.getFood(food)>=5){
+                //inventory.addFood(food,-5);
+                b.addStarvingTime(5000);
+                //}
+
                 }
             }
 

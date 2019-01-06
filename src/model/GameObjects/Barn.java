@@ -17,6 +17,9 @@ public class Barn extends ProducingObject {
     private boolean klicked = false;
 
     //Starving-Attribute
+    private double starvingTime = 10000;
+    private boolean starving = false;
+    private int multiStarving;
     
 
     public Barn(String type, double x, double y, UIController ui,ProgramController pc){
@@ -25,6 +28,7 @@ public class Barn extends ProducingObject {
         this.type = type;
         this.pc = pc;
         this.ui = ui;
+
 
 
         createAndSetNewImage("assets/images/barns/" + type + ".png");
@@ -42,6 +46,8 @@ public class Barn extends ProducingObject {
         }
         barnInfo = new BarnInfo(400,50,pc,this);
         ui.drawObject(barnInfo);
+        multiStarving = getAllAnimals();
+
     }
 
     /*@Override
@@ -51,7 +57,18 @@ public class Barn extends ProducingObject {
 
     @Override
     public void update(double dt) {
-        super.update(dt);
+        multiStarving = getAllAnimals();
+
+        if(multiStarving>0){
+            starving = true;
+            starvingTime = starvingTime - dt*multiStarving;
+        }else{
+            starving = false;
+        }
+
+        if(starvingTime<=0){
+            //HIER!
+        }
     }
 
     public boolean addAnimal(Animal a){
@@ -165,6 +182,20 @@ public class Barn extends ProducingObject {
             }
         }
         return animalCounter;
+    }
+
+    public double getStarvingTime(){
+        return starvingTime;
+    }
+    public int getMultiStarving(){
+        return multiStarving;
+    }
+    public boolean getStarving(){
+        return starving;
+    }
+
+    public void addStarvingTime(int amount){
+        starvingTime = starvingTime + amount;
     }
 
 }
