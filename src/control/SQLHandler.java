@@ -182,24 +182,27 @@ public class SQLHandler {
 
     private int getBarnID(Barn barn){
         try {
-            ResultSet results = stmt.executeQuery("SELECT ID FROM JA_Stall WHERE x = " + barn.getY() / 50 + " AND y = " + barn.getX() / 50 + ");");
+            String s = "SELECT ID FROM JA_Stall WHERE x = " + ((int)barn.getY()/50) + " AND y = " + ((int)barn.getX()) / 50 + ";";
+            ResultSet results = stmt.executeQuery(s);
             while (results.next()){
                 return results.getInt(1);
             }
         }catch(Exception e){
-
+            e.printStackTrace();
         }
         return 0;
     }
 
     public void updateAnimalBarn(int animalID, Barn barn){
         try{
-            stmt.execute("UPDATE JA_Tier " +
+            String s = "UPDATE JA_Tier " +
                     "SET stallID = " + getBarnID(barn) + " " +
-                    "WHERE ID = " + animalID + ";"
-                    );
+                    "WHERE ID = " + animalID + ";";
+            System.out.println(s);
+            stmt.execute(s);
+            System.out.println(123);
         }catch(Exception e){
-
+            e.printStackTrace();
         }
     }
 

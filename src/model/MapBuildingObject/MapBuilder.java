@@ -133,6 +133,7 @@ public class MapBuilder {
         try {
             Barn barn = getBarnFromCoordinates(barnX, barnY);
             while (animals.next()) {
+                pc.setAnimalCount(pc.getAnimalCount()+1);
                 int ID = animals.getInt(1);
                 String type = animals.getString(2);
                 if(type.equals("eichhoernchen")){
@@ -154,7 +155,6 @@ public class MapBuilder {
                 }else if(type.equals("ziege")){
                     barn.addAnimal(new Goat(400,400,pc,"ziege",ID));
                 }
-                pc.setAnimalCount(pc.getAnimalCount()+1);
             }
         }catch(Exception e){
 
@@ -168,26 +168,7 @@ public class MapBuilder {
     public void loadAnimalsToPC(ResultSet results){
         try {
             while (results.next()) {
-                String type = results.getString(1);
-                if(type.equals("eichhoernchen")){
-                    pc.addAnimal(2,0);
-                }else if(type.equals("wurm")){
-                    pc.addAnimal(1,0);
-                }else if(type.equals("fuchs")){
-                    pc.addAnimal(3,0);
-                }else if(type.equals("hase")){
-                    pc.addAnimal(4,0);
-                }else if(type.equals("hirsch")){
-                    pc.addAnimal(5,0);
-                }else if(type.equals("schnecke")){
-                    pc.addAnimal(6,0);
-                }else if(type.equals("vogel")){
-                    pc.addAnimal(7,0);
-                }else if(type.equals("wildschwein")){
-                    pc.addAnimal(8,0);
-                }else if(type.equals("ziege")){
-                    pc.addAnimal(9,0);
-                }
+                pc.addAnimalFromDatabase(results.getString(1));
             }
         }catch (Exception e){
             e.printStackTrace();

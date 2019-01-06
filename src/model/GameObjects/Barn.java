@@ -114,4 +114,8 @@ public class Barn extends ProducingObject {
     public Animal[] getAnimals() {
         return animals;
     }
+
+    public String getType() {
+        return type;
+    }
 }

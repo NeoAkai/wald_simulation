@@ -100,7 +100,7 @@ public class ProgramController {
 
     public void putAnimalIntoBarn(Animal a){
         int barnCounter = 0;
-        System.out.println("1");
+        //System.out.println("1");
         Barn[] alotBarns = new Barn[100];
         boolean done = false;
         for (int i = 0; i < grass.length; i++) {
@@ -380,6 +380,54 @@ public class ProgramController {
                     redrawShop();
                     sqlHandler.updateCash();
                     userInterface.addCash(-price);
+                }
+            }
+        }
+    }
+
+    public void addAnimalFromDatabase(String type){
+        boolean finished = false;
+        for(int i = 0; i < freeAnimals.length&&!finished; i++){
+            if(freeAnimals[i]==null){
+                finished = true;
+                animalCount++;
+                switch(type){
+                    case "wurm":
+                        freeAnimals[i] = new Worm(500,300,this,"wurm",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "eichhoernchen":
+                        freeAnimals[i] = new Eichhörnchen(500,300,this,"eichhoernchen",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "fuchs":
+                        freeAnimals[i] = new Fox(500,300,this,"fuchs",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "hase":
+                        freeAnimals[i] = new Rabbit(500,300,this,"hase",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "hirsch":
+                        freeAnimals[i] = new Hirsch(500,300,this,"hirsch",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "schnecke":
+                        freeAnimals[i] = new Schnecke(500,300,this,"schnecke",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "vogel":
+                        freeAnimals[i] = new Bird(500,300,this,"vogel",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "wildschwein":
+                        freeAnimals[i] = new WildPig(500,300,this,"wildschwein",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
+                    case "ziege":
+                        freeAnimals[i] = new Goat(500,300,this,"ziege",animalCount);
+                        uiController.drawObject(freeAnimals[i]);
+                        break;
                 }
             }
         }
