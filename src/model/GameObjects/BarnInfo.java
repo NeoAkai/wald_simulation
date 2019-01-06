@@ -88,10 +88,26 @@ public class BarnInfo extends GraphicalObject {
             if(visible) {
                 if (e.getX() > x + 100 && e.getX() < x + 450 && e.getY() > y + 440 && e.getY() < y + 560) {
                     System.out.println("Fütterungszeit");
-                    //if(inventory.getFood(food)>=5){
-                    //inventory.addFood(food,-5);
-                    b.addStarvingTime(5000);
-                    //}
+                    switch (b.getFood()){
+                        case "cherry":
+                            if(pc.getSqlHandler().getCherries() >= 5){
+                                b.addStarvingTime(5000);
+                                pc.getSqlHandler().changeCherriesByAmount(-5);
+                            }
+                            break;
+                        case "wheat":
+                            if(pc.getSqlHandler().getWheat() >= 5){
+                                b.addStarvingTime(5000);
+                                pc.getSqlHandler().changeWheatByAmount(-5);
+                            }
+                            break;
+                        case "carrot":
+                            if(pc.getSqlHandler().getCarrots() >= 5){
+                                b.addStarvingTime(5000);
+                                pc.getSqlHandler().changeCarrotsByAmount(-5);
+                            }
+                            break;
+                    }
 
                 }
 

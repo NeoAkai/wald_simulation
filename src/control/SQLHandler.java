@@ -344,6 +344,14 @@ public class SQLHandler {
         return -1;
     }
 
+    public void changeCarrotsByAmount(int amount){
+        try{
+            stmt.execute("UPDATE JA_Farmer SET karotten = " + (getCarrots()+amount) + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public int getWheat(){
         try {
             ResultSet s = stmt.executeQuery("SELECT heu FROM JA_Farmer");
@@ -356,6 +364,14 @@ public class SQLHandler {
         return -1;
     }
 
+    public void changeWheatByAmount(int amount){
+        try{
+            stmt.execute("UPDATE JA_Farmer SET heu = " + (getWheat()+amount) + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public int getCherries(){
         try {
             ResultSet s = stmt.executeQuery("SELECT kirschen FROM JA_Farmer");
@@ -366,6 +382,14 @@ public class SQLHandler {
             System.out.println("kann nicht karotten getten");
         }
         return -1;
+    }
+
+    public void changeCherriesByAmount(int amount){
+        try{
+            stmt.execute("UPDATE JA_Farmer SET kirschen = " + (getCherries()+amount) + ";");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void updateTreeGrowTimer(int x, int y, int timer){
