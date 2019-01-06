@@ -15,6 +15,7 @@ public class Barn extends ProducingObject {
     private UIController ui;
     private ProgramController pc;
     private boolean klicked = false;
+    private int index = 0;
 
     //Starving-Attribute
     private double starvingTime = 10000;
@@ -28,6 +29,15 @@ public class Barn extends ProducingObject {
         this.type = type;
         this.pc = pc;
         this.ui = ui;
+
+        if(type.equals("wurm"))index = 1;
+        if(type.equals("eichhoernchen"))index = 2;
+        if(type.equals("fuchs"))index = 3;
+        if(type.equals("hase"))index = 4;
+        if(type.equals("hirsch"))index = 5;
+        if(type.equals("schnecke"))index = 6;
+        if(type.equals("vogel"))index = 7;
+        if(type.equals("ziege"))index = 9;
 
 
 
@@ -198,4 +208,17 @@ public class Barn extends ProducingObject {
         starvingTime = starvingTime + amount;
     }
 
+    public void removeAnimal(){
+       boolean deleted = false;
+        for(int i = 0; i < animals.length&&!deleted;i++){
+            if(animals[i] != null){
+                animals[i] = null;
+                deleted = true;
+            }
+        }
+    }
+
+    public int returnIndex(){
+        return index;
+    }
 }

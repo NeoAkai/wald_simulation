@@ -100,6 +100,13 @@ public class BarnInfo extends GraphicalObject {
                 visible = false;
             }
 
+            if(e.getX()>x+406&&e.getX()<x+469&&e.getY()>y+280&&e.getY()<y+342){
+                if(pc.checkFreeAnimalPlaces()){
+                    b.removeAnimal();
+                    pc.addAnimal(b.returnIndex(),0);
+                }
+            }
+
         }
         klicked =! klicked;
     }

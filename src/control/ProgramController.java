@@ -329,6 +329,15 @@ public class ProgramController {
         xButton.setVisible(false);
     }
 
+    public boolean checkFreeAnimalPlaces(){
+        for(int i = 0; i < freeAnimals.length;i++){
+            if(freeAnimals[i] == null){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addAnimal(int index,int price){
         boolean finished = false;
         for(int i = 0; i < freeAnimals.length&&!finished; i++){
