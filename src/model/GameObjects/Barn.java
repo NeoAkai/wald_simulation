@@ -1,21 +1,50 @@
 package model.GameObjects;
 
+import control.ProgramController;
+import control.framework.UIController;
 import mapObjects.CoveringObject;
 import model.framework.GraphicalObject;
 import view.framework.DrawTool;
+
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 public class Barn extends ProducingObject {
 
     private String type;
     private Animal[] animals;
+    private String food;
+    private BarnInfo barnInfo;
+    private UIController ui;
+    private ProgramController pc;
 
-    public Barn(String type, double x, double y){
+
+    //Starving-Attribute
+    
+
+    public Barn(String type, double x, double y, BarnInfo barnInfo, UIController ui,ProgramController pc){
         this.x = x;
         this.y = y;
         this.type = type;
+        this.pc = pc;
+        this.ui = ui;
+        this.barnInfo = barnInfo;
+        barnInfo = new BarnInfo(400,50,pc,this);
+
         createAndSetNewImage("assets/images/barns/" + type + ".png");
         animals = new Animal[5];
         maxItemCooldown = 61;
+
+        if(type.equals("hase")||type.equals("hirsch")){
+            food = "carrot";
+        }
+        if(type.equals("schnecke")||type.equals("wurm")||type.equals("ziege")){
+            food = "wheat";
+        }
+        if(type.equals("eichhoernchen")||type.equals("fuchs")||type.equals("vogel")){
+            food = "cherry";
+        }
+
     }
 
     /*@Override
@@ -115,7 +144,17 @@ public class Barn extends ProducingObject {
         return animals;
     }
 
-    public String getType() {
-        return type;
+    public String getFood(){
+        return food;
     }
+    public BufferedImage getBarnImage(){
+        return getMyImage();
+    }
+    public void mouseReleased(MouseEvent e){
+        if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50){
+            barnInfo.setVisible(true);
+            System.out.println("lol");
+        }
+    }
+
 }

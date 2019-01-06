@@ -17,10 +17,12 @@ public class MapBuilder {
     private Tree[][] tree;
     private UIController ui;
     private ProgramController pc;
+    private BarnInfo barnInfo;
 
 
-    public MapBuilder(Grass[][] grass, Tree[][] tree, UIController ui, ProgramController pc) {
+    public MapBuilder(Grass[][] grass, Tree[][] tree, UIController ui, ProgramController pc, BarnInfo barnInfo) {
         this.grass = grass;
+        this.barnInfo = barnInfo;
         this.tree = tree;
         this.pc = pc;
         this.ui = ui;
@@ -118,7 +120,7 @@ public class MapBuilder {
                 int x = results.getInt(3);
                 int y = results.getInt(4);
                 if(i == 0) {
-                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50));
+                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,barnInfo,ui,pc));
                 }else if(i == 1){
                     grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc));
                 }
