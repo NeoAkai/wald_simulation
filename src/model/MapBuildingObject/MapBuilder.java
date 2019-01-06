@@ -120,7 +120,7 @@ public class MapBuilder {
                 int x = results.getInt(3);
                 int y = results.getInt(4);
                 if(i == 0) {
-                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,barnInfo,ui,pc));
+                    grass[x][y].setCoveringObject(new Barn(results.getString(2), 50 * y, 50 * (x-1) + 50,ui,pc));
                 }else if(i == 1){
                     grass[x][y].setCoveringObject(new Plant(results.getString(2), 50 * y, 50 * (x-1) + 50, pc));
                 }

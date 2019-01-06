@@ -17,19 +17,18 @@ public class Barn extends ProducingObject {
     private BarnInfo barnInfo;
     private UIController ui;
     private ProgramController pc;
-
+    private boolean klicked = false;
 
     //Starving-Attribute
     
 
-    public Barn(String type, double x, double y, BarnInfo barnInfo, UIController ui,ProgramController pc){
+    public Barn(String type, double x, double y, UIController ui,ProgramController pc){
         this.x = x;
         this.y = y;
         this.type = type;
         this.pc = pc;
         this.ui = ui;
-        this.barnInfo = barnInfo;
-        barnInfo = new BarnInfo(400,50,pc,this);
+
 
         createAndSetNewImage("assets/images/barns/" + type + ".png");
         animals = new Animal[5];
@@ -44,7 +43,7 @@ public class Barn extends ProducingObject {
         if(type.equals("eichhoernchen")||type.equals("fuchs")||type.equals("vogel")){
             food = "cherry";
         }
-
+        barnInfo = new BarnInfo(400,50,pc,this);
     }
 
     /*@Override
@@ -152,8 +151,10 @@ public class Barn extends ProducingObject {
     }
     public void mouseReleased(MouseEvent e){
         if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50){
-            barnInfo.setVisible(true);
-            System.out.println("lol");
+          if(!klicked) {
+              barnInfo.setVisible(true);
+          }
+          klicked = !klicked;
         }
     }
 

@@ -16,7 +16,7 @@ import java.io.IOException;
 public class BarnInfo extends GraphicalObject {
 
     private ProgramController pc;
-    private boolean klicked, visible;
+    private boolean klicked, visible = false;
     private Barn b;
     private BufferedImage food, point, barn;
     private Rectangle2D.Double hitbox;
@@ -27,8 +27,10 @@ public class BarnInfo extends GraphicalObject {
         this.pc = pc;
         this.b = b;
         createAndSetNewImage("assets/images/UiImages/BarnInfo.png");
-        visible = false;
+
         hitbox = new Rectangle2D.Double(x+100,y+545,350,120);
+
+        setImage();
     }
 
     private void setImage(){
@@ -47,11 +49,10 @@ public class BarnInfo extends GraphicalObject {
 
     @Override
     public void draw(DrawTool drawTool) {
-
-        if(visible) drawTool.drawImage(getMyImage(),x, y);
-
-
-
+        System.out.println("Stinka");
+        if(visible){
+            drawTool.drawImage(getMyImage(),x, y);
+        }
     }
 
     @Override
@@ -68,5 +69,6 @@ public class BarnInfo extends GraphicalObject {
 
     public void setVisible(boolean b){
         visible = b;
+
     }
 }
