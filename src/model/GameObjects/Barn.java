@@ -18,12 +18,14 @@ public class Barn extends ProducingObject {
     private int price;
     private Sign sign;
     private ProgramController pc;
-    private double time = 200;
+    private double time = 40;
 
     //Starving-Attribute
     private double starvingTime;
     private boolean starving = false;
     private int multiStarving;
+
+    private boolean klickable = true;
 
     
 
@@ -69,6 +71,10 @@ public class Barn extends ProducingObject {
             index = 9;
             price = 250;
         }
+        if(type.equals("wildschwein")){
+            index = 8;
+            price = 200;
+        }
 
 
 
@@ -76,7 +82,7 @@ public class Barn extends ProducingObject {
         animals = new Animal[5];
         maxItemCooldown = 61;
 
-        if(type.equals("hase")||type.equals("hirsch")){
+        if(type.equals("hase")||type.equals("hirsch")||type.equals("wildschwein")){
             food = "carrot";
         }
         if(type.equals("schnecke")||type.equals("wurm")||type.equals("ziege")){
@@ -155,8 +161,10 @@ public class Barn extends ProducingObject {
                 addToArray(a);
             }else if(type.equals("ziege") && a instanceof Goat){
                 addToArray(a);
+            }else if(type.equals("wildschwein")&& a instanceof WildPig) {
+                addToArray(a);
             }else{
-                return false;
+            return false;
             }
         }else{
             return false;
@@ -231,7 +239,8 @@ public class Barn extends ProducingObject {
         return getMyImage();
     }
     public void mouseReleased(MouseEvent e){
-        if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50){
+
+        if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+50&&klickable){
           if(!klicked) {
               barnInfo.setVisible(true);
               pc.redrawBarnInfo(barnInfo);
@@ -250,6 +259,9 @@ public class Barn extends ProducingObject {
         return animalCounter;
     }
 
+    public void setKlickable(boolean a){
+        klickable = a;
+    }
     public double getStarvingTime(){
         return starvingTime;
     }

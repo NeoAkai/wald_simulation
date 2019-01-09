@@ -19,7 +19,7 @@ public class Animal extends GraphicalObject {
     protected String type;
     private int databaseID;
     private Sign sign;
-    private double time = 200;
+    private double time = 40;
     private UIController ui;
     protected int price;
 

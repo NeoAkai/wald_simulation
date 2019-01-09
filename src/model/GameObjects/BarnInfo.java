@@ -117,7 +117,7 @@ public class BarnInfo extends GraphicalObject {
                 }
 
                 if (e.getX() > x + 406 && e.getX() < x + 469 && e.getY() > y + 280 && e.getY() < y + 342) {
-                    if (pc.checkFreeAnimalPlaces()) {
+                    if (pc.checkFreeAnimalPlaces()&&b.getAllAnimals()>0) {
                         pc.freeAnimal(b.removeAnimal(),this);
                     }
                 }
@@ -128,6 +128,7 @@ public class BarnInfo extends GraphicalObject {
 
     public void setVisible(boolean b){
         visible = b;
+        pc.setBarnsKlickable(!b);
 
     }
 }

@@ -112,6 +112,16 @@ public class ProgramController {
         inventory.setVisibility(a);
     }
 
+    public void setBarnsKlickable(boolean a){
+        for (int i = 0; i < grass.length; i++) {
+            for (int e = 0; e < grass[0].length; e++) {
+                if(grass[i][e].getCoveringObject()instanceof Barn){
+                    ((Barn) grass[i][e].getCoveringObject()).setKlickable(a);
+                }
+            }
+        }
+    }
+
     public void putAnimalIntoBarn(Animal a){
         int barnCounter = 0;
         Barn[] alotBarns = new Barn[100];
@@ -242,7 +252,7 @@ public class ProgramController {
                 break;
             case 6:
 
-                Barn a = new Barn("wurm", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn a = new Barn("wurm", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(a)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "wurm");
                     uiController.drawObject(a);
@@ -250,7 +260,7 @@ public class ProgramController {
                 }
                 break;
             case 7:
-                Barn b = new Barn("eichhoernchen", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn b = new Barn("eichhoernchen", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(b)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "eichhoernchen");
                     uiController.drawObject(b);
@@ -258,7 +268,7 @@ public class ProgramController {
                 }
                 break;
             case 8:
-                Barn c = new Barn("fuchs", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn c = new Barn("fuchs", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(c)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "fuchs");
                     uiController.drawObject(c);
@@ -266,42 +276,42 @@ public class ProgramController {
                 }
                 break;
             case 9:
-                Barn d = new Barn("hase", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn d = new Barn("hase", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(d)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "hase");
                     uiController.drawObject(d);
                     redrawShop();
                 }                break;
             case 10:
-                Barn e = new Barn("hirsch", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn e = new Barn("hirsch", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(e)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "hirsch");
                     uiController.drawObject(e);
                     redrawShop();
                 }                break;
             case 11:
-                Barn f = new Barn("schnecke", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn f = new Barn("schnecke", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(f)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "schnecke");
                     uiController.drawObject(f);
                     redrawShop();
                 }                break;
             case 12:
-                Barn h = new Barn("vogel", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn h = new Barn("vogel", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(h)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "vogel");
                     uiController.drawObject(h);
                     redrawShop();
                 }                break;
             case 13:
-                Barn i = new Barn("wildschwein", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn i = new Barn("wildschwein", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(i)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "wildschwein");
                     uiController.drawObject(i);
                     redrawShop();
                 }                break;
             case 14:
-                Barn j = new Barn("ziege", g.getx(),g.gety(),uiController,this,61,10000);
+                Barn j = new Barn("ziege", g.getx(),g.gety(),uiController,this,61,1000);
                 if(g.plant(j)) {
                     sqlHandler.addBarn(g.gety() / 50, g.getx() / 50, "ziege");
                     uiController.drawObject(j);
