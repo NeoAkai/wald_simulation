@@ -57,8 +57,8 @@ public class Sign extends GraphicalObject {
     public void mouseReleased(MouseEvent e){
         if(e.getX()>x&&e.getX()<x+50&&e.getY()>y&&e.getY()<y+60&&visible){
             setVisibility(false);
-            if(animal!=null)animal.setTime(60);
-            if(b!=null) b.setnewTime(60);
+            if(animal!=null)animal.setTime(90);
+            if(b!=null) b.setnewTime(90);
             if(animal!=null)pc.addCash(animal.getPrice()*3);
             if(b!=null)pc.addCash(b.getPrice()*2);
 

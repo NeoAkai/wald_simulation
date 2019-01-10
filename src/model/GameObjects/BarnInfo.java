@@ -72,9 +72,17 @@ public class BarnInfo extends GraphicalObject {
             if(!b.getStarving())drawTool.setCurrentColor(0,0,0,255);
 
             if(b.getMultiStarving()!=0) {
-                drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime() / b.getMultiStarving()));
+                if(b.getStarvingTime()%60>=10){
+                    drawTool.drawText(x + 333, y + 385, "" + (int) ((b.getStarvingTime() / b.getMultiStarving())/60)+":"+(int)((b.getStarvingTime() / b.getMultiStarving())%60));
+                }else{
+                    drawTool.drawText(x + 333, y + 385, "" + (int) ((b.getStarvingTime() / b.getMultiStarving())/60)+":0"+(int)((b.getStarvingTime() / b.getMultiStarving())%60));
+                }
             }else{
-                drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime()));
+                if(b.getStarvingTime()%60>=10){
+                    drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime()/60)+":"+(int)(b.getStarvingTime()%60));
+                }else{
+                    drawTool.drawText(x + 333, y + 385, "" + (int) (b.getStarvingTime()/60)+":0"+(int)(b.getStarvingTime()%60));
+                }
 
             }
 
@@ -91,19 +99,19 @@ public class BarnInfo extends GraphicalObject {
                     switch (b.getFood()){
                         case "cherry":
                             if(pc.getSqlHandler().getCherries() >= 5){
-                                b.addStarvingTime(5000);
+                                b.addStarvingTime(300);
                                 pc.getSqlHandler().changeCherriesByAmount(-5);
                             }
                             break;
                         case "wheat":
                             if(pc.getSqlHandler().getWheat() >= 5){
-                                b.addStarvingTime(5000);
+                                b.addStarvingTime(300);
                                 pc.getSqlHandler().changeWheatByAmount(-5);
                             }
                             break;
                         case "carrot":
                             if(pc.getSqlHandler().getCarrots() >= 5){
-                                b.addStarvingTime(5000);
+                                b.addStarvingTime(300);
                                 pc.getSqlHandler().changeCarrotsByAmount(-5);
                             }
                             break;
@@ -113,13 +121,22 @@ public class BarnInfo extends GraphicalObject {
 
 
                 if (e.getX() > x + 522 && e.getX() < x + 569 && e.getY() > y + 11 && e.getY() < y + 54) {
-                    visible = false;
+                    setVisible(false);
                 }
 
                 if (e.getX() > x + 406 && e.getX() < x + 469 && e.getY() > y + 280 && e.getY() < y + 342) {
                     if (pc.checkFreeAnimalPlaces()&&b.getAllAnimals()>0) {
                         pc.freeAnimal(b.removeAnimal(),this);
                     }
+                }
+                if(e.getX()>x+495&&e.getX()<x+560&&e.getY()>y+280&&e.getY()<y+342&&b.getAllAnimals()>0){
+                    b.removeAnimal();
+                    pc.addCash(200);
+                }
+                if(e.getX()>x+32&&e.getY()>y+72&&e.getX()<x+95&&e.getY()<y+135){
+                    b.removeThisBarn();
+                    pc.addCash(1000);
+                    pc.addWood(800);
                 }
             }
         }

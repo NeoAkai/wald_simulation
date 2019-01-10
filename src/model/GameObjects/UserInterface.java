@@ -25,9 +25,9 @@ public class UserInterface extends GraphicalObject  {
         super.draw(drawTool);
         drawTool.drawImage(getMyImage(),x,y);
         drawTool.setCurrentColor(255,255,255,255);
-        drawTool.drawText(120, 32, cash+"$");
-        drawTool.drawText(340,32,wood+"");
-        drawTool.drawText(560,32, harmony +"");
+        drawTool.drawText(470, 32, cash+"$");
+        drawTool.drawText(690,32,wood+"");
+
     }
 
     public void addCash(int amount){

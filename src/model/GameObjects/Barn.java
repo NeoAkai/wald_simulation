@@ -118,8 +118,11 @@ public class Barn extends ProducingObject {
         }
 
         if(starvingTime<=0){
-            pc.removeBarn(this);
-        }
+            removeThisBarn();
+
+
+            pc.setKnebiVisible(true);
+                 }
 
 
         if(time < 200&&getAllAnimals()>0){
@@ -131,8 +134,19 @@ public class Barn extends ProducingObject {
             sign.setVisibility(true);
         }
 
-        sign.setnewX(x);
-        sign.setnewY(y);
+        if(sign!=null)sign.setnewX(x);
+        if(sign!=null)sign.setnewY(y);
+    }
+
+    public void removeThisBarn(){
+        pc.removeBarn(this);
+        barnInfo.setVisible(false);
+        ui.removeObject(sign);
+        sign = null;
+    }
+    public void redrawSign(){
+        ui.removeObject(sign);
+        ui.drawObject(sign);
     }
 
     public void setnewTime(double a){

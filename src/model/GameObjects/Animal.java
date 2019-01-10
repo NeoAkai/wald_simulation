@@ -49,6 +49,10 @@ public class Animal extends GraphicalObject {
             imageSet = true;
         }
     }
+    public void redrawSign(){
+        ui.removeObject(sign);
+        ui.drawObject(sign);
+    }
 
     public void update(double dt){
         moveCounter = moveCounter - dt;
